@@ -4,9 +4,10 @@ import { LogoDiv } from "./StHeader.styled";
 import { SearchBar } from "./StHeader.styled";
 import { UserCorner } from "./StHeader.styled";
 
+import { ProductSearchbar } from "./ProductSearchbar/ProductSearchbar";
+
 import { User } from "@styled-icons/boxicons-solid";
 import React from "react";
-import { ProductSearchbar } from "./ProductSearchbar/ProductSearchbar";
 
 export function Header() {
   return (
