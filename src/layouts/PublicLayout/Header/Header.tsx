@@ -3,6 +3,7 @@ import { StMainContainer } from "../../../components/StMainContainer/StMainConta
 import { LogoDiv } from "./StHeader.styled";
 import { SearchBar } from "./StHeader.styled";
 import { UserCorner } from "./StHeader.styled";
+import { StProductSearchbar } from "./ProductSearchbar/StProductSearchbar.styled";
 
 import { ProductSearchbar } from "./ProductSearchbar/ProductSearchbar";
 
@@ -13,7 +14,7 @@ export function Header() {
   return (
     <div>
       <StMainContainer>
-        <HeaderContainer className="flex justify-between">
+        <HeaderContainer className="flex justify-between py-6">
           <LogoDiv>
             {" "}
             <svg
@@ -32,23 +33,10 @@ export function Header() {
             </svg>
             <h5 className="text-customBlue">eTechMarket.ge</h5>
           </LogoDiv>
-
           <SearchBar>
-            <form>
-              <label
-                htmlFor="default-search"
-                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-              ></label>
-              <div className="relative flex border-primaryBlue ">
-                <ProductSearchbar />
-                <button
-                  type="submit"
-                  className="text-white absolute right-2.5 bottom-2.5 bg-primaryBlue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Search
-                </button>
-              </div>
-            </form>
+            <StProductSearchbar>
+              <ProductSearchbar />
+            </StProductSearchbar>
           </SearchBar>
 
           <UserCorner>

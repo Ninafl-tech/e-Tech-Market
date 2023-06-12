@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Product } from "../../../../components/Product/Product";
 import React from "react";
+import { Button, Space, Input } from "antd";
 
 type ProductData = {
   id: number;
   title: string;
   images: string;
+  category: string;
 };
 
 export function ProductSearchbar() {
@@ -35,16 +37,22 @@ export function ProductSearchbar() {
   }, [searchKeyword]);
 
   return (
-    <div className="searchDiv ">
-      <input
-        type="search"
-        id="default-search"
-        className="block w-full p-4 pl-10 text-sm text-gray-900 border border-primaryBlue rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-primaryBlue dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="search..."
-        required
-        value={searchKeyword}
-        onChange={(e) => setSearchKeyword(e.target.value)}
-      />
+    <div className="searchDiv w-screen">
+      <Space.Compact
+        style={{
+          width: "100%",
+        }}
+      >
+        <Input
+          placeholder="Search"
+          required
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+        <Button type="primary" className="bg-primaryBlue">
+          Submit
+        </Button>
+      </Space.Compact>
       {error && <div>Error</div>}
       {loading ? (
         <div>Loading...</div>

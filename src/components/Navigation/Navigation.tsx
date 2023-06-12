@@ -1,13 +1,13 @@
 import React from "react";
-import { StCard } from "../StCard/StCard.syled";
 // import { NavContent } from "./NavContent/NavContent";
 import { NavCategories } from "./NavCategories/NavCategories";
 
 export function Navigation() {
   return (
-    <StCard className="flex">
+    <div className="flex w-96">
+      {/* // NavHeader */}
       <NavCategories />
       {/* <NavContent /> */}
-    </StCard>
+    </div>
   );
 }
