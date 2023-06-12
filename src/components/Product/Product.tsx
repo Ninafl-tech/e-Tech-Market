@@ -1,4 +1,5 @@
 import React from "react";
+
 type Productrops = {
   product: {
     id: number;

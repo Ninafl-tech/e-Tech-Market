@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Product } from "../../../components/Product/Product";
+import { Product } from "../../../../components/Product/Product";
 import React from "react";
 
 type ProductData = {
