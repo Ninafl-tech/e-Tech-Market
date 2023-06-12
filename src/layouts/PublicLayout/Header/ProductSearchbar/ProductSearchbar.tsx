@@ -12,7 +12,7 @@ type ProductData = {
 export function ProductSearchbar() {
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
 
   async function getProductData(searchKeyword: string) {
@@ -35,7 +35,7 @@ export function ProductSearchbar() {
   }, [searchKeyword]);
 
   return (
-    <div className="searchDiv">
+    <div className="searchDiv ">
       <input
         type="search"
         id="default-search"
