@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Product } from "./Product/Product";
+import { Product } from "../../../components/Product/Product";
+import React from "react";
 
 type ProductData = {
   id: number;
@@ -8,7 +9,7 @@ type ProductData = {
   images: string;
 };
 
-export function ProductSearch() {
+export function ProductSearchbar() {
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [loading, setLoading] = useState(false);
