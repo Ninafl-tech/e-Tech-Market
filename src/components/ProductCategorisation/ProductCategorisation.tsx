@@ -12,17 +12,16 @@ type ProductData = {
 };
 
 export function ProductCategorisation() {
-  const [activeCategory, setActiveCategory] = useState<String>("");
-  const [productData, setProductData] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
 
-  async function getProductData() {
+  async function getcategories() {
     try {
       setError("");
       setLoading(true);
       const resp = await axios.get(`https://dummyjson.com/products/categories`);
-      setProductData(resp.data);
+      setCategories(resp.data);
       console.log(resp.data);
       setLoading(false);
     } catch (error: any) {
@@ -32,7 +31,7 @@ export function ProductCategorisation() {
   }
 
   useEffect(() => {
-    getProductData();
+    getcategories();
   }, []);
 
   return (
@@ -40,10 +39,10 @@ export function ProductCategorisation() {
       {error && <div>Error</div>}
       {loading ? (
         <div>Loading...</div>
-      ) : productData ? (
+      ) : categories ? (
         <ul>
-          {productData.map((product) => (
-            <NavCategory key={product} product={product} />
+          {categories.map((category) => (
+            <NavCategory key={category} category={category} />
           ))}
         </ul>
       ) : null}

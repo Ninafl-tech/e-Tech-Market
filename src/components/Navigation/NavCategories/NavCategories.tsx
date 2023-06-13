@@ -6,10 +6,10 @@ export function NavCategories() {
   return (
     <>
       <StNavCategories className="rounded-sm ">
-        <div className="bg-secondaryBlue p-5 rounded-sm">
+        <div className=" bg-blue-300  p-5 rounded-sm">
           <h2>კატეგორიები</h2>
         </div>
-        <div className="flex flex-col rounded-sm">
+        <div className="flex flex-col rounded-sm bg-secondaryBlue">
           <ProductCategorisation />
         </div>
       </StNavCategories>
