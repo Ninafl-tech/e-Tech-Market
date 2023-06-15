@@ -46,7 +46,7 @@ export function ProductSearchbar() {
   }
 
   return (
-    <div className="searchDiv w-screen">
+    <div className="searchDiv w-full h-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
