@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function ProductsView() {
-  return <h1>ProductsView</h1>;
+  return <></>;
 }

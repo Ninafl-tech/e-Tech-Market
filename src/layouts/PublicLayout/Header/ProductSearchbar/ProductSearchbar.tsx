@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Space, Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import { Product } from "../../../../components/Product/Product";
 
 type ProductData = {
   name: string;
@@ -36,6 +37,10 @@ export function ProductSearchbar() {
   function handleSubmit() {
     getProductData(searchKeyword);
   }
+  const navigate = useNavigate();
+  function buttonClick() {
+    navigate("/products");
+  }
 
   return (
     <div className="searchDiv w-screen">
@@ -56,7 +61,12 @@ export function ProductSearchbar() {
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
-          <Button type="primary" className="bg-primaryBlue" htmlType="submit">
+          <Button
+            type="primary"
+            className="bg-primaryBlue"
+            htmlType="submit"
+            onClick={buttonClick}
+          >
             Submit
           </Button>
         </Space.Compact>
@@ -65,15 +75,7 @@ export function ProductSearchbar() {
       {productData.length > 0 && (
         <div>
           {productData.map((product) => (
-            <div
-              className="max-w-sm rounded overflow-hidden shadow-lg"
-              key={product.id}
-            >
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{product.title}</div>
-                <p className="text-gray-700 text-base">{product.description}</p>
-              </div>
-            </div>
+            <Product key={product.id} product={product} />
           ))}
         </div>
       )}

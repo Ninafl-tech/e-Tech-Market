@@ -43,7 +43,6 @@ export function Header() {
             <User size={24} />
           </UserCorner>
         </HeaderContainer>
-        <HeaderContainer>Header2</HeaderContainer>
       </StMainContainer>
     </div>
   );
