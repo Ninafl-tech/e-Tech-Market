@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { Product } from "../../../../components/Product/Product";
-import React from "react";
 import { Button, Space, Input } from "antd";
+import { useNavigate } from "react-router-dom";
 
 type ProductData = {
+  name: string;
   id: number;
   title: string;
   images: string;
   category: string;
+  description: string;
 };
 
 export function ProductSearchbar() {
@@ -32,37 +33,50 @@ export function ProductSearchbar() {
     }
   }
 
-  useEffect(() => {
+  function handleSubmit() {
     getProductData(searchKeyword);
-  }, [searchKeyword]);
+  }
 
   return (
     <div className="searchDiv w-screen">
-      <Space.Compact
-        style={{
-          width: "100%",
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
         }}
       >
-        <Input
-          placeholder="Search"
-          required
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-        />
-        <Button type="primary" className="bg-primaryBlue">
-          Submit
-        </Button>
-      </Space.Compact>
+        <Space.Compact
+          style={{
+            width: "100%",
+          }}
+        >
+          <Input
+            placeholder="Search"
+            required
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+          <Button type="primary" className="bg-primaryBlue" htmlType="submit">
+            Submit
+          </Button>
+        </Space.Compact>
+      </form>
       {error && <div>Error</div>}
-      {loading ? (
-        <div>Loading...</div>
-      ) : searchKeyword.trim() !== "" ? (
-        <ul>
+      {productData.length > 0 && (
+        <div>
           {productData.map((product) => (
-            <Product product={product} key={product.id} />
+            <div
+              className="max-w-sm rounded overflow-hidden shadow-lg"
+              key={product.id}
+            >
+              <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2">{product.title}</div>
+                <p className="text-gray-700 text-base">{product.description}</p>
+              </div>
+            </div>
           ))}
-        </ul>
-      ) : null}
+        </div>
+      )}
     </div>
   );
 }
