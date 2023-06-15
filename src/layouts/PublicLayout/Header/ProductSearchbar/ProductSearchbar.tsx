@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Space, Input } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,8 @@ export function ProductSearchbar() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   async function getProductData(searchKeyword: string) {
     try {
       setError("");
@@ -37,9 +39,10 @@ export function ProductSearchbar() {
   function handleSubmit() {
     getProductData(searchKeyword);
   }
-  const navigate = useNavigate();
+
   function buttonClick() {
     navigate("/products");
+    getProductData(searchKeyword);
   }
 
   return (
