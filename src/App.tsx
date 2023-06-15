@@ -1,3 +1,4 @@
+import React from "react";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -8,6 +9,8 @@ const ProductsView = lazy(() => import("./views/ProductsView/ProductsView"));
 const ProductDetailView = lazy(
   () => import("./views/ProductDetailView/ProductDetailView")
 );
+const LoginView = lazy(() => import("./views/LoginView/LoginView"));
+const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
 
 function App() {
   return (
@@ -15,8 +18,10 @@ function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomeView />} />
-          <Route path="/products" element={<ProductsView />} />
           <Route path="/products/:id" element={<ProductDetailView />} />
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/register" element={<RegisterView />} />
+          <Route path="/products" element={<ProductsView />} />
         </Route>
       </Routes>
     </Suspense>

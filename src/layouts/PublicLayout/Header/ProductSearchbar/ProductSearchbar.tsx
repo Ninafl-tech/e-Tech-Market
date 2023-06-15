@@ -1,19 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button, Space, Input } from "antd";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../../../../components/Product/Product";
-import React from "react";
 
 type ProductData = {
+  name: string;
   id: number;
   title: string;
   images: string;
+  category: string;
+  description: string;
 };
 
 export function ProductSearchbar() {
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   async function getProductData(searchKeyword: string) {
     try {
@@ -30,31 +36,52 @@ export function ProductSearchbar() {
     }
   }
 
-  useEffect(() => {
+  function handleSubmit() {
     getProductData(searchKeyword);
-  }, [searchKeyword]);
+  }
+
+  function buttonClick() {
+    navigate("/products");
+    getProductData(searchKeyword);
+  }
 
   return (
-    <div className="searchDiv">
-      <input
-        type="search"
-        id="default-search"
-        className="block w-full p-4 pl-10 text-sm text-gray-900 border border-primaryBlue rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-primaryBlue dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="search..."
-        required
-        value={searchKeyword}
-        onChange={(e) => setSearchKeyword(e.target.value)}
-      />
+    <div className="searchDiv w-full h-full">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <Space.Compact
+          style={{
+            width: "100%",
+          }}
+        >
+          <Input
+            placeholder="Search"
+            required
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+          <Button
+            type="primary"
+            className="bg-primaryBlue"
+            htmlType="submit"
+            onClick={buttonClick}
+          >
+            Submit
+          </Button>
+        </Space.Compact>
+      </form>
       {error && <div>Error</div>}
-      {loading ? (
-        <div>Loading...</div>
-      ) : searchKeyword.trim() !== "" ? (
-        <ul>
+      {productData.length > 0 && (
+        <div>
           {productData.map((product) => (
-            <Product product={product} key={product.id} />
+            <Product key={product.id} product={product} />
           ))}
-        </ul>
-      ) : null}
+        </div>
+      )}
     </div>
   );
 }

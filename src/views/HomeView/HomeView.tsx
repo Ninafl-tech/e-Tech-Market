@@ -1,9 +1,11 @@
+import React from "react";
 import { Navigation } from "../../components/Navigation/Navigation";
+import { StCard } from "../../components/StCard/StCard.syled";
 
 export default function HomeView() {
   return (
-    <h1>
+    <StCard>
       <Navigation />
-    </h1>
+    </StCard>
   );
 }
