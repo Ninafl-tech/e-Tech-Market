@@ -9,6 +9,8 @@ export const LogoDiv = styled.div`
   display: flex;
 `;
 
-export const SearchBar = styled.div``;
+export const SearchBar = styled.div`
+  width: 600px;
+`;
 
 export const UserCorner = styled.div``;

@@ -6,6 +6,8 @@ export default {
       colors: {
         customBlue: "#8CB7F5",
         primaryBlue: "#0D6EFD",
+        secondaryBlue: "#c7e1ff",
+        primaryGray: "#D9D9D9",
       },
     },
   },

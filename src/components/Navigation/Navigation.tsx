@@ -1,13 +1,21 @@
 import React from "react";
-import { StCard } from "../StCard/StCard.syled";
+import { useState } from "react";
 // import { NavContent } from "./NavContent/NavContent";
 import { NavCategories } from "./NavCategories/NavCategories";
+import { NavContext } from "./context/NavContext";
 
 export function Navigation() {
+  const [activeCategory, setActiveCategory] = useState<string>("");
+  console.log(activeCategory);
   return (
-    <StCard className="flex">
-      <NavCategories />
-      {/* <NavContent /> */}
-    </StCard>
+    <NavContext.Provider value={{ activeCategory, setActiveCategory }}>
+      <div
+        className="flex w-72 relative"
+        onMouseLeave={() => setActiveCategory("")}
+      >
+        {/* // NavHeader */}
+        <NavCategories />
+      </div>
+    </NavContext.Provider>
   );
 }
