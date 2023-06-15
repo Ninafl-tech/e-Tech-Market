@@ -16,9 +16,9 @@ function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomeView />} />
-          <Route path="/products" element={<ProductsView />} />
           <Route path="/products/:id" element={<ProductDetailView />} />
         </Route>
+        <Route path="/products" element={<ProductsView />} />
       </Routes>
     </Suspense>
   );

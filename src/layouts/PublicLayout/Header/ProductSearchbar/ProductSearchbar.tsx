@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Product } from "../../../../components/Product/Product";
-import React from "react";
 import { Button, Space, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Product } from "../../../../components/Product/Product";
 
 type ProductData = {
+  name: string;
   id: number;
   title: string;
   images: string;
   category: string;
+  description: string;
 };
 
 export function ProductSearchbar() {
@@ -16,6 +18,8 @@ export function ProductSearchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   async function getProductData(searchKeyword: string) {
     try {
@@ -32,37 +36,52 @@ export function ProductSearchbar() {
     }
   }
 
-  useEffect(() => {
+  function handleSubmit() {
     getProductData(searchKeyword);
-  }, [searchKeyword]);
+  }
+
+  function buttonClick() {
+    navigate("/products");
+    getProductData(searchKeyword);
+  }
 
   return (
     <div className="searchDiv w-screen">
-      <Space.Compact
-        style={{
-          width: "100%",
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
         }}
       >
-        <Input
-          placeholder="Search"
-          required
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-        />
-        <Button type="primary" className="bg-primaryBlue">
-          Submit
-        </Button>
-      </Space.Compact>
+        <Space.Compact
+          style={{
+            width: "100%",
+          }}
+        >
+          <Input
+            placeholder="Search"
+            required
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+          <Button
+            type="primary"
+            className="bg-primaryBlue"
+            htmlType="submit"
+            onClick={buttonClick}
+          >
+            Submit
+          </Button>
+        </Space.Compact>
+      </form>
       {error && <div>Error</div>}
-      {loading ? (
-        <div>Loading...</div>
-      ) : searchKeyword.trim() !== "" ? (
-        <ul>
+      {productData.length > 0 && (
+        <div>
           {productData.map((product) => (
-            <Product product={product} key={product.id} />
+            <Product key={product.id} product={product} />
           ))}
-        </ul>
-      ) : null}
+        </div>
+      )}
     </div>
   );
 }
