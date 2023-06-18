@@ -4,7 +4,7 @@ import {
   TAuthorizationStatus,
 } from "../../../contexts/AuthContext";
 import { useContext } from "react";
-import { User, UserPlus, Home, UserMinus } from "@styled-icons/boxicons-solid";
+import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
 import { ShoppingCart } from "styled-icons/entypo";
 import { StMainContainer } from "../../../components/StMainContainer/StMainContainer.styled";
 import { ProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/ProductSearchbar";
@@ -16,17 +16,20 @@ import {
   UserCorner,
   UserItem,
 } from "../../PublicLayout/Header/StHeader.styled";
+import { To, useNavigate } from "react-router";
 
 export function PrivateHeader() {
   const { status, setStatus } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("AccessToken");
+    localStorage.removeItem("accessToken");
     setStatus(TAuthorizationStatus.UNAUTHORIZED);
   };
 
-  function buttonClick(arg0: string): void {
-    throw new Error("Function not implemented.");
+  const navigate = useNavigate();
+
+  function buttonClick(path: To) {
+    navigate(path);
   }
 
   return (

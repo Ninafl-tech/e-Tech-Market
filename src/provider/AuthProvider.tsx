@@ -10,7 +10,17 @@ export function AuthProvider({ children }: PropsWithChildren) {
     TAuthorizationStatus.UNAUTHORIZED
   );
 
+  useEffect(() => {
+    const token = localStorage.getItem(Tlocalstorage.ACCESSTOKEN);
+    if (token) {
+      setStatus(TAuthorizationStatus.AUTHORIZED);
+      console.log(status);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ status }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ status, setStatus }}>
+      {children}
+    </AuthContext.Provider>
   );
 }

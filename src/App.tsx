@@ -31,7 +31,13 @@ function App() {
       case TAuthorizationStatus.UNAUTHORIZED:
         return (
           <Routes>
-            <Route element={<PublicLayout />} />
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/products/:id" element={<ProductDetailView />} />
+              <Route path="/login" element={<LoginView />} />
+              <Route path="/register" element={<RegisterView />} />
+              <Route path="/products" element={<ProductsView />} />
+            </Route>
           </Routes>
         );
     }
