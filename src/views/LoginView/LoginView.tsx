@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { Tlocalstorage } from "../../types/TlocalStorage";
+import { AuthContext, TAuthorizationStatus } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 type TLoginForm = {
   email: string;
@@ -11,6 +13,7 @@ type TLoginForm = {
 };
 
 export default function LoginView() {
+  const { setStatus } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -21,7 +24,10 @@ export default function LoginView() {
   async function onSubmit(data: TLoginForm) {
     try {
       const resp = await axios.post("http://localhost:8080/login", data);
-      localStorage.setItem(Tlocalstorage.ACCESSTOKEN, resp.data.AccessToken);
+      if (resp.data.AccessToken) {
+        localStorage.setItem(Tlocalstorage.ACCESSTOKEN, resp.data.AccessToken);
+        setStatus(TAuthorizationStatus.AUTHORIZED);
+      }
     } catch (error: any) {
       setError("root", { message: "something went wrong" });
     }
