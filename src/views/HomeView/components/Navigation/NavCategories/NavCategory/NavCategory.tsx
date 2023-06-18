@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NavContext } from "../../context/NavContext";
 import { NavContent } from "./NavContent/NavContent";
-import { Tcategory } from "../../../../types/TnavCategory";
+import { Tcategory } from "../../../../../../types/TnavCategory";
 import React from "react";
 
 export function NavCategory({ category }: { category: string }) {

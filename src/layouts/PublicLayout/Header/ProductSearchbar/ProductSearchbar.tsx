@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Space, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import { Product } from "../../../../components/Product/Product";
+import { Product } from "../../../../views/ProductDetailView/components/Product/Product";
 
 type ProductData = {
   name: string;
