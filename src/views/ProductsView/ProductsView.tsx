@@ -26,8 +26,8 @@ export default function ProductsView() {
         <div className="flex flex-wrap">
           {products.map((product: TProductprops) => {
             return (
-              <div className="p-12">
-                <Product product={product} key={product?.id} />
+              <div className="p-12" key={product.id}>
+                <Product product={product} />
               </div>
             );
           })}
