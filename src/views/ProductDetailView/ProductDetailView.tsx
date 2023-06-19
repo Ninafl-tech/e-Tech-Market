@@ -101,33 +101,13 @@ export default function ProductDetailView() {
                 </a>
                 <a className="h-30 block mb-4 mr-2 sm:mr-0" href="#">
                   <img
-                    className="h-full w-full"
-                    src="uinel-assets/images/ecommerce-product-info/placeholder1.png"
-                    alt=""
-                  />
-                </a>
-                <a className="hidden sm:block h-30 mb-4 mr-2 sm:mr-0" href="#">
-                  <img
-                    className="h-full w-full"
-                    src="uinel-assets/images/ecommerce-product-info/placeholder2.png"
-                    alt=""
-                  />
-                </a>
-                <a
-                  className="hidden sm:block h-30 mb-4 mr-2 sm:mr-0 rounded-xl border-2 border-blueGray-500"
-                  href="#"
-                >
-                  <img
-                    className="h-full w-full"
-                    src="uinel-assets/images/ecommerce-product-info/placeholder4.png"
-                    alt=""
-                  />
-                </a>
-                <a className="h-30 block mb-4 sm:mb-12 mr-4 sm:mr-0" href="#">
-                  <img
-                    className="h-full w-full"
-                    src="uinel-assets/images/ecommerce-product-info/placeholder3.png"
-                    alt=""
+                    className="w-full max-h-60"
+                    src={
+                      product.images && product.images.length > 0
+                        ? product.images[0]
+                        : ""
+                    }
+                    alt={product.name}
                   />
                 </a>
                 <a

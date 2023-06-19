@@ -4,7 +4,7 @@ export type TProductprops = {
   rating: number;
   id: number;
   title: string;
-  images: string;
+  images: string[];
   category: string;
   name: string;
   description: string;

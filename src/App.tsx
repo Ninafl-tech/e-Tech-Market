@@ -43,7 +43,9 @@ function App() {
     }
   }, []);
 
-  return <Suspense>{handleRoots(status)}</Suspense>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{handleRoots(status)}</Suspense>
+  );
 }
 
 export default App;
