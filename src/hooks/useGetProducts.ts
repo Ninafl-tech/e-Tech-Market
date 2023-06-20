@@ -1,21 +1,37 @@
 import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { TProduct } from "../types/Tproduct";
+import { PAGINATION_LIMIT } from "../config/pagination.config";
+import { PaginationProps } from "antd";
+
+const calculateSkippedPages = (currentPage: number, limit: number) =>
+  (currentPage - 1) * limit;
 
 export function useGetProducts(endpoint: string) {
   const [fetchedProducts, setFetchedProducts] = useState<TProduct[]>([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProductData = useCallback(
-    async (searchKeyword: string) => {
+    async (searchKeyword: string, currentPage: number) => {
       try {
+        const skippedProducts = calculateSkippedPages(
+          currentPage,
+          PAGINATION_LIMIT
+        );
         setError("");
         setLoading(true);
-        const resp = await axios.get(
-          endpoint + (searchKeyword ? `search?q=${searchKeyword}` : "")
-        );
+        if (searchKeyword)
+          endpoint =
+            endpoint + (searchKeyword ? `search?q=${searchKeyword}` : "");
+        else
+          endpoint = `https://dummyjson.com/products?limit=${PAGINATION_LIMIT}&skip=${skippedProducts}`;
+        const resp = await axios.get(endpoint);
+        setTotalItems(resp.data.total);
+
         setFetchedProducts(resp.data?.products);
         setLoading(false);
       } catch (error: any) {
@@ -23,8 +39,12 @@ export function useGetProducts(endpoint: string) {
         setError(error.message || "An error occurred.");
       }
     },
-    [endpoint]
+    [endpoint, currentPage, searchKeyword]
   );
+
+  const onChange: PaginationProps["onChange"] = (page) => {
+    setCurrentPage(page);
+  };
 
   return {
     fetchedProducts,
@@ -33,5 +53,8 @@ export function useGetProducts(endpoint: string) {
     loading,
     error,
     getProductData,
+    currentPage,
+    totalItems,
+    onChange,
   };
 }

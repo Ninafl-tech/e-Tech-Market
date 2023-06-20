@@ -12,12 +12,13 @@ export function ProductSearchbar() {
     loading,
     error,
     getProductData,
+    currentPage,
   } = useGetProducts(`https://dummyjson.com/products/`);
 
   const handleSubmit = useCallback(
     (e: { preventDefault: () => void }) => {
       e.preventDefault();
-      getProductData(searchKeyword);
+      getProductData(searchKeyword, currentPage);
     },
     [getProductData, searchKeyword]
   );
