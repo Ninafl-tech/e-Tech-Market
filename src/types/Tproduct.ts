@@ -1,4 +1,4 @@
-export type TProductprops = {
+export type TProduct = {
   brand: string;
   price: number;
   rating: number;
