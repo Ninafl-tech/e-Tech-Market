@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TProductprops } from "../../types/Tproduct";
+import { TProduct } from "../../types/Tproduct";
 import { Product } from "../ProductDetailView/components/Product/Product";
 
 import { PAGINATION_LIMIT } from "../../config/pagination.config";
@@ -11,10 +11,10 @@ const calculateSkippedPages = (currentPage: number, limit: number) =>
   (currentPage - 1) * limit;
 
 export default function ProductsView() {
-  const [products, setProducts] = useState<TProductprops[]>([]);
+  const [products, setProducts] = useState<TProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   async function getProduct(currentPage: number) {
     const skippedProducts = calculateSkippedPages(
@@ -27,9 +27,9 @@ export default function ProductsView() {
       `https://dummyjson.com/products?limit=${PAGINATION_LIMIT}&skip=${skippedProducts}`
     );
 
-    setTotalPages(Math.ceil(resp.data.total / PAGINATION_LIMIT));
-
+    setTotalItems(resp.data.total);
     setProducts(resp.data.products);
+
     setLoading(false);
   }
 
@@ -48,7 +48,7 @@ export default function ProductsView() {
       ) : (
         <div className="flex flex-col">
           <div className="flex flex-wrap">
-            {products.map((product: TProductprops) => {
+            {products.map((product: TProduct) => {
               return (
                 <div className="p-12" key={product.id}>
                   <Product product={product} />
@@ -61,7 +61,9 @@ export default function ProductsView() {
               <Pagination
                 current={currentPage}
                 onChange={onChange}
-                total={50}
+                total={totalItems}
+                pageSize={PAGINATION_LIMIT}
+                simple={true}
               />
             }
           </div>
