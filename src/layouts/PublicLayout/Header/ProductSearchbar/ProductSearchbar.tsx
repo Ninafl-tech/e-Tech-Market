@@ -3,6 +3,7 @@ import { Product } from "../../../../views/ProductDetailView/components/Product/
 import { TProduct } from "../../../../types/Tproduct";
 import { useGetProducts } from "../../../../hooks/useGetProducts";
 import { useCallback } from "react";
+import React from "react";
 
 export function ProductSearchbar() {
   const {
