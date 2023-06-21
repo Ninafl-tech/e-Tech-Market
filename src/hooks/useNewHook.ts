@@ -18,13 +18,21 @@ export function useNewHook(endpoint: string) {
   const [filter, setFilter] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  useEffect(() => {
+    console.log((currentPage - 1) * limit);
+    setSkip((currentPage - 1) * limit);
+  }, [currentPage]);
+
   async function getProducts() {
     try {
       setLoading(true);
       setError("");
       const resp = await axios(
-        `https://dummyjson.com/${endpoint}?take=${limit}&skip=${skip}`
+        `https://dummyjson.com/${endpoint}?limit=${limit}&skip=${skip}`
       );
+
+      console.log(resp.data?.products);
+      setTotal(resp.data?.total);
 
       setLoading(false);
       setProducts(resp.data?.products);
@@ -40,8 +48,12 @@ export function useNewHook(endpoint: string) {
   return {
     setSkip,
     // setEndpoint,
+    setCurrentPage,
+    currentPage,
     loading,
     error,
     products,
+    limit,
+    total,
   };
 }

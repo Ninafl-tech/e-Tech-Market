@@ -7,12 +7,16 @@ import { PAGINATION_LIMIT } from "../../config/pagination.config";
 import { useNewHook } from "../../hooks/useNewHook";
 
 export default function ProductsView() {
-  const { loading, fetchedProducts, currentPage, totalItems, onChange } =
-    useGetProducts(`https://dummyjson.com/products/`);
-  const { setSkip, error, products } = useNewHook("products/");
+  const { loading, fetchedProducts, totalItems, onChange } = useGetProducts(
+    `https://dummyjson.com/products/`
+  );
+  const { setSkip, currentPage, setCurrentPage, limit, total, products } =
+    useNewHook("products/");
 
-  useEffect(() => {}, []);
-  console.log(products);
+  const handleClick = (e: any) => {
+    console.log(e);
+    setCurrentPage(e);
+  };
 
   return (
     <>
@@ -33,9 +37,9 @@ export default function ProductsView() {
             {
               <Pagination
                 current={currentPage}
-                onChange={onChange}
-                total={totalItems}
-                pageSize={PAGINATION_LIMIT}
+                onChange={handleClick}
+                total={total}
+                pageSize={limit}
                 simple={true}
               />
             }
