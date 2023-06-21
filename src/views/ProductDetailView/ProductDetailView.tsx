@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import { TProductprops } from "../../types/Tproduct";
+import { TProduct } from "../../types/Tproduct";
 
 export default function ProductDetailView() {
   const { id } = useParams();
 
-  const [product, setProduct] = useState({} as TProductprops);
+  const [product, setProduct] = useState({} as TProduct);
   const [loading, setLoading] = useState<boolean>(false);
 
   async function getOneProduct(userId: string) {
