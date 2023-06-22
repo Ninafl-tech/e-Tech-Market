@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+
 import { TProduct } from "../../../../types/Tproduct";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function SearchResults() {
-  const [searchParams] = useSearchParams();
-  const [searchResults, setSearchResults] = useState<TProduct[]>([]);
-  const [error, setError] = useState<any>("");
-
-  //   const { query } = useParams();
-
-  async function searchProduct() {
-    try {
+  const { searchKeyword } = useParams();
+  const { data, isLoading, error } = useQuery(
+    ["searchResults", searchKeyword],
+    async () => {
       const resp = await axios.get(
-        `https://dummyjson.com/products/search?q=${searchParams.get("q")}`
+        `https://dummyjson.com/products/search?q=${searchKeyword}`
       );
-      setSearchResults(resp.data?.products);
-    } catch (error: any) {
-      setError(error.message);
+      return resp?.data;
+    },
+    {
+      useErrorBoundary: (error: any) => error.response?.status >= 500,
     }
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  useEffect(() => {
-    console.log(searchParams.get("q"));
-    searchProduct();
-  }, []);
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <div>
-      {searchResults.map((searchResult) => (
+      {data?.products.map((searchResult: TProduct) => (
         <div key={searchResult.id}>
           <p>{searchResult.title}</p>
         </div>

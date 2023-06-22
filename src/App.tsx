@@ -40,7 +40,10 @@ function App() {
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
               <Route path="/products" element={<ProductsView />} />
-              <Route path="/products/search" element={<SearchResults />} />
+              <Route
+                path="/searchResults/:searchKeyword"
+                element={<SearchResults />}
+              />
             </Route>
           </Routes>
         );

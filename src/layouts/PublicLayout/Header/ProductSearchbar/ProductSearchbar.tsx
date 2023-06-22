@@ -1,6 +1,5 @@
 import { Button, Space, Input } from "antd";
 import { Product } from "../../../../views/ProductDetailView/components/Product/Product";
-import { useSearchParams } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -8,17 +7,11 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 export function ProductSearchbar() {
-  const [searchParams] = useSearchParams();
-
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
   function handleclick() {
-    navigate({
-      pathname: "/products/search",
-      search: `?q=${searchKeyword}`,
-    });
-    searchParams.set("q", searchKeyword);
+    navigate(`/searchResults/${searchValue}`);
   }
   return (
     <>
@@ -32,8 +25,8 @@ export function ProductSearchbar() {
             <Input
               placeholder="Search"
               required
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
             <Button
               type="primary"

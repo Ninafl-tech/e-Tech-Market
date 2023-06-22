@@ -13,6 +13,7 @@ export default function ProductDetailView() {
     setLoading(true);
     const resp = await axios.get(`https://dummyjson.com/products/${userId}`);
     setProduct(resp.data);
+
     setLoading(false);
   }
 
