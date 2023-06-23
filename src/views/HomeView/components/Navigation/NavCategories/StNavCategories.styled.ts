@@ -5,6 +5,6 @@ export const StNavCategories = styled.div`
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  padding: 12px;
+  padding: 2px;
   border-radius: 10px;
 `;
