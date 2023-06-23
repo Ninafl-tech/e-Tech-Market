@@ -2,9 +2,9 @@ import React from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
-import { ProductData } from "../../../../types/Tproduct";
+import { TProductsList } from "../../../../types/Tproduct";
 
-export function Product({ product }: ProductData) {
+export function Product({ product }: TProductsList) {
   const navigate = useNavigate();
 
   const handleProductClick = () => {

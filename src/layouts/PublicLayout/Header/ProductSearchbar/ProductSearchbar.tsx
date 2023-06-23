@@ -1,10 +1,6 @@
 import { Button, Space, Input } from "antd";
-import { Product } from "../../../../views/ProductDetailView/components/Product/Product";
-
-import { useState } from "react";
-
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 
 export function ProductSearchbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -38,16 +34,7 @@ export function ProductSearchbar() {
             </Button>
           </Space.Compact>
         </form>
-        {/* {error && <div>Error</div>} */}
-        {/* {fetchedProducts.length > 0 && (
-            <div>
-              {fetchedProducts.map((product: TProduct) => (
-                <Product key={product.id} product={product} />
-              ))}
-            </div>
-          )} */}
       </div>
-      {/* )} */}
     </>
   );
 }

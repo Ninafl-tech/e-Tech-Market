@@ -10,7 +10,7 @@ export type TProduct = {
   description: string;
 };
 
-export type ProductData = {
+export type TProductsList = {
   product: {
     name: string;
     id: number;
