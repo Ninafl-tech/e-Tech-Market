@@ -2,25 +2,16 @@ import React from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
+import { TProductsList } from "../../../../types/Tproduct";
 
-export type ProductData = {
-  product: {
-    name: string;
-    id: number;
-    title: string;
-    images: string;
-    category: string;
-    description: string;
-  };
-};
-
-export function Product({ product }: ProductData) {
+export function Product({ product }: TProductsList) {
   const navigate = useNavigate();
 
   const handleProductClick = () => {
     navigate(`/products/${product.id}`);
     console.log("product clicked");
   };
+
   return (
     <Container>
       <Visible

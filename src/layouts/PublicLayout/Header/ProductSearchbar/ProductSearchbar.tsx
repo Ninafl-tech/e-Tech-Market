@@ -1,63 +1,40 @@
 import { Button, Space, Input } from "antd";
-import { Product } from "../../../../views/ProductDetailView/components/Product/Product";
-import { TProduct } from "../../../../types/Tproduct";
-import { useGetProducts } from "../../../../hooks/useGetProducts";
-import { useCallback } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ProductSearchbar() {
-  const {
-    fetchedProducts,
-    searchKeyword,
-    setSearchKeyword,
-    loading,
-    error,
-    getProductData,
-  } = useGetProducts(`https://dummyjson.com/products/`);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = useCallback(
-    (e: { preventDefault: () => void }) => {
-      e.preventDefault();
-      getProductData(searchKeyword);
-    },
-    [getProductData, searchKeyword]
-  );
+  function handleclick() {
+    navigate(`/searchResults/${searchValue}`);
+  }
   return (
     <>
-      {loading ? (
-        <div>... loading </div>
-      ) : (
-        <div className="searchDiv w-full h-full">
-          <form onSubmit={handleSubmit}>
-            <Space.Compact
-              style={{
-                width: "100%",
-              }}
+      <div className="searchDiv w-full h-full">
+        <form>
+          <Space.Compact
+            style={{
+              width: "100%",
+            }}
+          >
+            <Input
+              placeholder="Search"
+              required
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <Button
+              type="primary"
+              className="bg-primaryBlue"
+              htmlType="submit"
+              onClick={handleclick}
             >
-              <Input
-                placeholder="Search"
-                required
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-              />
-              <Button
-                type="primary"
-                className="bg-primaryBlue"
-                htmlType="submit"
-              >
-                Submit
-              </Button>
-            </Space.Compact>
-          </form>
-          {error && <div>Error</div>}
-          {fetchedProducts.length > 0 && (
-            <div>
-              {fetchedProducts.map((product: TProduct) => (
-                <Product key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+              Submit
+            </Button>
+          </Space.Compact>
+        </form>
+      </div>
     </>
   );
 }

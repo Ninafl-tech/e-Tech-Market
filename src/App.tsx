@@ -13,6 +13,7 @@ const ProductDetailView = lazy(
 );
 const LoginView = lazy(() => import("./views/LoginView/LoginView"));
 const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
+const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -37,6 +38,10 @@ function App() {
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
               <Route path="/products" element={<ProductsView />} />
+              <Route
+                path="/searchResults/:searchKeyword"
+                element={<SearchResults />}
+              />
             </Route>
           </Routes>
         );
