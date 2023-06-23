@@ -2,17 +2,7 @@ import React from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
-
-export type ProductData = {
-  product: {
-    name: string;
-    id: number;
-    title: string;
-    images: string;
-    category: string;
-    description: string;
-  };
-};
+import { ProductData } from "../../../../types/Tproduct";
 
 export function Product({ product }: ProductData) {
   const navigate = useNavigate();
@@ -21,6 +11,7 @@ export function Product({ product }: ProductData) {
     navigate(`/products/${product.id}`);
     console.log("product clicked");
   };
+
   return (
     <Container>
       <Visible

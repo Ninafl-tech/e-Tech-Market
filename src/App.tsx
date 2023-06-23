@@ -13,9 +13,7 @@ const ProductDetailView = lazy(
 );
 const LoginView = lazy(() => import("./views/LoginView/LoginView"));
 const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
-const SearchResults = lazy(
-  () => import("./layouts/PublicLayout/Header/ProductSearchbar/SearchResults")
-);
+const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 
 function App() {
   const { status } = useContext(AuthContext);
