@@ -12,6 +12,11 @@ export function useFetchData() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
 
+  const calculateSkip = (currentPage: number, limit: number) => {
+    return (currentPage - 1) * limit; // Added the return statement
+  };
+  const skipPages = calculateSkip(currentPage, PAGINATION_LIMIT);
+
   const getProducts = useCallback(
     async (
       searchKeyword?: string,
@@ -23,18 +28,24 @@ export function useFetchData() {
       try {
         const endpoint = `${baseURL}/products`;
         const searchEndpoint = `${baseURL}/products/search`;
-        const skipPages = (currentPage - 1) * (limit || PAGINATION_LIMIT);
+        let response;
 
-        const response = await axios.get(
-          searchQuerry ? searchEndpoint : endpoint,
-          {
+        if (searchQuerry) {
+          response = await axios.get(searchEndpoint, {
             params: {
               q: searchKeyword,
               limit: limit || PAGINATION_LIMIT,
               skip: skip || skipPages,
             },
-          }
-        );
+          });
+        } else {
+          response = await axios.get(endpoint, {
+            params: {
+              limit: limit || PAGINATION_LIMIT,
+              skip: skip || skipPages,
+            },
+          });
+        }
 
         const { data } = response;
         setProducts(data.products);
@@ -45,7 +56,7 @@ export function useFetchData() {
         setIsLoading(false);
       }
     },
-    [currentPage]
+    [skipPages]
   );
 
   const onChange: PaginationProps["onChange"] = (page) => {
@@ -61,3 +72,4 @@ export function useFetchData() {
     onChange,
   };
 }
+
