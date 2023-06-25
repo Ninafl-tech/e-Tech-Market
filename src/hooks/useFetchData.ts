@@ -13,30 +13,43 @@ export function useFetchData() {
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const calculateSkip = (currentPage: number, limit: number) => {
-    (currentPage - 1) * limit;
+    return (currentPage - 1) * limit; // Added the return statement
   };
   const skipPages = calculateSkip(currentPage, PAGINATION_LIMIT);
 
   const getProducts = useCallback(
     async (
       searchKeyword?: string,
-      endpoint?: string,
+      searchQuerry?: string,
       limit?: number,
       skip?: number
     ) => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${baseURL}/products/${endpoint}`, {
-          params: {
-            q: searchKeyword,
-            endpoint: endpoint || baseURL,
-            limit: limit || PAGINATION_LIMIT,
-            skip: skip || skipPages,
-          },
-        });
+        const endpoint = `${baseURL}/products`;
+        const searchEndpoint = `${baseURL}/products/search`;
+        let response;
+
+        if (searchQuerry) {
+          response = await axios.get(searchEndpoint, {
+            params: {
+              q: searchKeyword,
+              limit: limit || PAGINATION_LIMIT,
+              skip: skip || skipPages,
+            },
+          });
+        } else {
+          response = await axios.get(endpoint, {
+            params: {
+              limit: limit || PAGINATION_LIMIT,
+              skip: skip || skipPages,
+            },
+          });
+        }
+
         const { data } = response;
         setProducts(data.products);
-        setTotalItems(data.totalItems);
+        setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
