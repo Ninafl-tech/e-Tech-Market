@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../../hooks/useFetchData";
-import { Product } from "../ProductDetailView/components/Product/Product";
+import { Product } from "../../components/Product/Product";
 import { TProduct } from "../../types/Tproduct";
 import { Pagination } from "antd";
 import { PAGINATION_LIMIT } from "../../config/pagination.config";
@@ -18,7 +18,7 @@ export default function SearchResults() {
   } = useFetchData();
 
   useEffect(() => {
-    getProducts(searchKeyword, "search");
+    getProducts(`${searchKeyword}`);
   }, [getProducts, searchKeyword]);
 
   return (

@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { TProduct } from "../../types/Tproduct";
+import { useFetchData } from "../../hooks/useFetchData";
 
 export default function ProductDetailView() {
   const { id } = useParams();
-
-  const [product, setProduct] = useState({} as TProduct);
+  const { products, getProducts, isLoading } = useFetchData();
+  
+ 
+  const product = products.find((product) => product.id === id);
   const [loading, setLoading] = useState<boolean>(false);
+
+
 
   async function getOneProduct(userId: string) {
     setLoading(true);
@@ -18,10 +23,10 @@ export default function ProductDetailView() {
   }
 
   useEffect(() => {
-    id && getOneProduct(id);
+    id && getProducts(id);
   }, [id]);
 
-  loading && <div>... loading </div>;
+  isLoading && <div>... loading </div>;
   return (
     <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
       <div className="container px-4 mx-auto">
