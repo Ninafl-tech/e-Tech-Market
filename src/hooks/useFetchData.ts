@@ -8,6 +8,20 @@ import { baseURL } from "../config/baseURL.config";
 
 export function useFetchData() {
   const [products, setProducts] = useState<TProduct[]>([]);
+  const [product, setProduct] = useState<TProduct>(
+    {
+    brand: "",
+    price: 0,
+    rating: 0,
+    id: 0,
+    title: "",
+    images: [],
+    category: "",
+    name: "",
+    description: "",
+    }
+
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -17,7 +31,7 @@ export function useFetchData() {
       searchKeyword?: string,
       limit?: number,
       skip?: number,
-      userID?: number
+      id?: number
     ) => {
       setIsLoading(true);
       try {
@@ -32,13 +46,15 @@ export function useFetchData() {
               q: searchKeyword,
               limit: limit || PAGINATION_LIMIT,
               skip: skip || skipPages,
-              id : userID,
+              id: id,
             },
           }
         );
 
         const { data } = response;
         setProducts(data.products);
+        console.log(data.products);
+        setProduct(data.products[`${id}`]);
         setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -55,6 +71,8 @@ export function useFetchData() {
 
   return {
     products,
+    product,
+    setProduct,
     getProducts,
     isLoading,
     currentPage,

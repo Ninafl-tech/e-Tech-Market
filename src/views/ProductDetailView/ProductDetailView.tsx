@@ -1,29 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
-import { TProduct } from "../../types/Tproduct";
 import { useFetchData } from "../../hooks/useFetchData";
 
 export default function ProductDetailView() {
   const { id } = useParams();
-  const { products, getProducts, isLoading } = useFetchData();
+  const { getProducts, isLoading,product, } = useFetchData();
+  console.log(product);
   
- 
-  const product = products.find((product) => product.id === id);
-  const [loading, setLoading] = useState<boolean>(false);
+   
+    // const resp = await axios.get(`https://dummyjson.com/products/${userId}`);
+    // setProduct(resp.data);
 
-
-
-  async function getOneProduct(userId: string) {
-    setLoading(true);
-    const resp = await axios.get(`https://dummyjson.com/products/${userId}`);
-    setProduct(resp.data);
-
-    setLoading(false);
-  }
 
   useEffect(() => {
-    id && getProducts(id);
+    id && getProducts(`${id}`);
   }, [id]);
 
   isLoading && <div>... loading </div>;
