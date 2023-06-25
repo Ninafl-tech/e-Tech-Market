@@ -9,7 +9,7 @@ import { PAGINATION_LIMIT } from "../../config/pagination.config";
 export default function SearchResults() {
   const { searchKeyword } = useParams();
   const {
-    products,
+    productsData,
     getProducts,
     isLoading,
     currentPage,
@@ -29,7 +29,7 @@ export default function SearchResults() {
       ) : (
         <div className="flex flex-col">
           <div className="flex flex-wrap">
-            {products.map((searchResult: TProduct) => (
+            {productsData.map((searchResult: TProduct) => (
               <div key={searchResult.id}>
                 <Product product={searchResult} />
               </div>

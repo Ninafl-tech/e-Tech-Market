@@ -7,7 +7,7 @@ import { useFetchData } from "../../hooks/useFetchData";
 
 export default function ProductsView() {
   const {
-    products,
+    productsData,
     getProducts,
     isLoading,
     currentPage,
@@ -26,7 +26,7 @@ export default function ProductsView() {
       ) : (
         <div className="flex flex-col">
           <div className="flex flex-wrap">
-            {products.map((product: TProduct) => (
+            {productsData.map((product: TProduct) => (
               <div className="p-12" key={product.id}>
                 <Product product={product} />
               </div>
