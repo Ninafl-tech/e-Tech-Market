@@ -3,13 +3,12 @@ import axios from "axios";
 import { PAGINATION_LIMIT } from "../config/pagination.config";
 import type { PaginationProps } from "antd";
 
-import { TProduct,TProductsList } from "../types/Tproduct";
+import { TProduct, TProductsList } from "../types/Tproduct";
 import { baseURL } from "../config/baseURL.config";
 
 export function useFetchData() {
   const [productsData, setProductsData] = useState<TProduct[]>([]);
-  const [product, setProduct] = useState<TProduct>(
-    {
+  const [product, setProduct] = useState<TProduct>({
     brand: "",
     price: 0,
     rating: 0,
@@ -19,63 +18,52 @@ export function useFetchData() {
     category: "",
     name: "",
     description: "",
-    }
-
-  );
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
-  
-  
+
   const getProducts = useCallback(
     async (
       id?: string,
       searchKeyword?: string,
       limit?: number,
-      skip?: number,
-      
+      skip?: number
     ) => {
       setIsLoading(true);
       try {
-        let endpoint = `${baseURL}/products/`;
+        const skipPages = (currentPage - 1) * (limit || PAGINATION_LIMIT);
+        let endpoint = "";
 
         if (id) {
-          endpoint += `/${id}`;
+          endpoint = `${baseURL}/products/${id}`;
         } else if (searchKeyword) {
-          endpoint = `${baseURL}/products/search`;
+          endpoint = `${baseURL}/products/search?q=${searchKeyword}`;
+        } else {
+          endpoint = `${baseURL}/products?limit=${
+            limit || PAGINATION_LIMIT
+          }&skip=${skipPages || 0}`;
         }
-        
-        const skipPages = (currentPage - 1) * (limit || PAGINATION_LIMIT);
 
-        const response = await axios.get(
-           endpoint,
-          {
-            params: {
-              id: id,
-              q: searchKeyword,
-              limit: limit || PAGINATION_LIMIT,
-              skip: skip || skipPages,
-             
-            },
-          }
-        );
+        const response = await axios.get(endpoint);
 
         const { data } = response;
-        setProductsData(data.products);
-         
-        const foundProduct = data.products.find((product :TProduct) => product.id === id);
-        if (foundProduct) {
-          setProduct(foundProduct);
+        if (data.products) {
+          setProductsData(data.products);
+
+          const foundProduct = data.products.find(
+            (product: TProduct) => product.id === id
+          );
+          if (foundProduct) {
+            setProduct(foundProduct);
+          }
         }
-        
         setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
       }
-    
-
     },
     [currentPage]
   );

@@ -89,7 +89,7 @@ export default function ProductDetailView() {
                     ></path>
                   </svg>
                 </a>
-                <a className="h-30 block mb-4 mr-2 sm:mr-0" href="#">
+                {/* <a className="h-30 block mb-4 mr-2 sm:mr-0" href="#">
                   <img
                     className="h-full w-full"
                     src="uinel-assets/images/ecommerce-product-info/placeholder1.png"
@@ -119,7 +119,7 @@ export default function ProductDetailView() {
                     src="uinel-assets/images/ecommerce-product-info/placeholder3.png"
                     alt=""
                   />
-                </a>
+                </a> */}
                 <a
                   className="inline-block transform -rotate-90 sm:transform-none hover:text-darkBlueGray-400"
                   href="#"
