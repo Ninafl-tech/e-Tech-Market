@@ -13,7 +13,7 @@ export function useFetchData() {
     brand: "",
     price: 0,
     rating: 0,
-    id: 0,
+    id: "",
     title: "",
     images: [],
     category: "",
@@ -29,34 +29,44 @@ export function useFetchData() {
   
   const getProducts = useCallback(
     async (
+      id?: string,
       searchKeyword?: string,
       limit?: number,
       skip?: number,
-      id?: string
+      
     ) => {
       setIsLoading(true);
       try {
-        const endpoint = `${baseURL}/products`;
-        const searchEndpoint = `${baseURL}/products/search`;
+        let endpoint = `${baseURL}/products/`;
+
+        if (id) {
+          endpoint += `/${id}`;
+        } else if (searchKeyword) {
+          endpoint = `${baseURL}/products/search`;
+        }
         
         const skipPages = (currentPage - 1) * (limit || PAGINATION_LIMIT);
 
         const response = await axios.get(
-          searchKeyword ? searchEndpoint : endpoint,
+           endpoint,
           {
             params: {
+              id: id,
               q: searchKeyword,
               limit: limit || PAGINATION_LIMIT,
               skip: skip || skipPages,
-              id: id,
+             
             },
           }
         );
 
         const { data } = response;
         setProductsData(data.products);
-        console.log(data.products[`${id}`]);
-        setProduct(data.products[1]);
+         
+        const foundProduct = data.products.find((product :TProduct) => product.id === id);
+        if (foundProduct) {
+          setProduct(foundProduct);
+        }
         
         setTotalItems(data.total);
       } catch (error) {

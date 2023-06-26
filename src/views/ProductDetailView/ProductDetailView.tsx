@@ -5,15 +5,9 @@ import { useFetchData } from "../../hooks/useFetchData";
 export default function ProductDetailView() {
   const { id } = useParams();
   const { getProducts, isLoading,product, } = useFetchData();
-  console.log(product);
-  
-   
-    // const resp = await axios.get(`https://dummyjson.com/products/${userId}`);
-    // setProduct(resp.data);
-
 
   useEffect(() => {
-    id && getProducts(`${id}`);
+    id && getProducts(id,);
   }, [id]);
 
   isLoading && <div>... loading </div>;
