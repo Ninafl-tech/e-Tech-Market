@@ -27,12 +27,11 @@ export function useFetchData() {
     async (
       id?: string,
       searchKeyword?: string,
-      limit?: number,
-      skip?: number
+      
     ) => {
       setIsLoading(true);
       try {
-        const skipPages = (currentPage - 1) * (limit || PAGINATION_LIMIT);
+        const skipPages = (currentPage - 1) *  PAGINATION_LIMIT;
         let endpoint = "";
 
         if (id) {
@@ -40,9 +39,7 @@ export function useFetchData() {
         } else if (searchKeyword) {
           endpoint = `${baseURL}/products/search?q=${searchKeyword}`;
         } else {
-          endpoint = `${baseURL}/products?limit=${
-            limit || PAGINATION_LIMIT
-          }&skip=${skipPages || 0}`;
+          endpoint = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${skipPages || 0}`;
         }
 
         const response = await axios.get(endpoint);
