@@ -21,11 +21,14 @@ export default function ProductsView() {
 
   return (
     <>
+
       {isLoading ? (
         <div>... loading</div>
       ) : (
-        <div className="flex flex-col">
-          <div className="flex flex-wrap">
+        <div className="flex flex-row">
+          <div className=" h-full">something</div>
+          <div >
+          <div className="flex flex-wrap justify-between">
             {productsData.map((product: TProduct) => (
               <div className="p-12" key={product.id}>
                 <Product product={product} />
@@ -40,6 +43,7 @@ export default function ProductsView() {
               pageSize={PAGINATION_LIMIT}
               simple={true}
             />
+          </div>
           </div>
         </div>
       )}

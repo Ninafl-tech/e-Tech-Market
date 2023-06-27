@@ -15,7 +15,7 @@ export function Product({ product }: TProductsList) {
   return (
     <Container>
       <Visible
-        className="max-w-sm w-64 h-80 overflow-hidden rounded  shadow-lg flex flex-col justify-between "
+        className="max-w-sm w-52 h-80 overflow-hidden rounded  shadow-lg flex flex-col justify-between "
         key={product.id}
       >
         <img
