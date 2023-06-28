@@ -6,8 +6,6 @@ export function ProductCategorisation() {
   const { productsData, getProducts, isLoading } = useFetchData();
   const [error, setError] = useState("");
 
-  console.log(productsData);
-
   useEffect(() => {
     getProducts("", "", "categories");
   }, []);
