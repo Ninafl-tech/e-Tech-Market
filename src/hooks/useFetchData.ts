@@ -7,31 +7,16 @@ import { TProduct, TProductsList } from "../types/Tproduct";
 import { baseURL } from "../config/baseURL.config";
 
 export function useFetchData() {
-  const [productsData, setProductsData] = useState<TProduct[]>([]);
-  const [product, setProduct] = useState<TProduct>({
-    brand: "",
-    price: 0,
-    rating: 0,
-    id: "",
-    title: "",
-    images: [],
-    category: "",
-    name: "",
-    description: "",
-  });
+  const [productsData, setProductsData] = useState<TProduct[] | TProduct>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProducts = useCallback(
-    async (
-      id?: string,
-      searchKeyword?: string,
-      
-    ) => {
+    async (id?: string, searchKeyword?: string) => {
       setIsLoading(true);
       try {
-        const skipPages = (currentPage - 1) *  PAGINATION_LIMIT;
+        const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
         let endpoint = "";
 
         if (id) {
@@ -39,22 +24,23 @@ export function useFetchData() {
         } else if (searchKeyword) {
           endpoint = `${baseURL}/products/search?q=${searchKeyword}`;
         } else {
-          endpoint = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${skipPages || 0}`;
+          endpoint = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
+            skipPages || 0
+          }`;
         }
 
         const response = await axios.get(endpoint);
 
         const { data } = response;
-        if (data.products) {
-          setProductsData(data.products);
 
-          const foundProduct = data.products.find(
-            (product: TProduct) => product.id === id
-          );
-          if (foundProduct) {
-            setProduct(foundProduct);
-          }
+        if (id) {
+          setProductsData(data);
+        } else {
+          setProductsData(data.products);
         }
+
+        console.log(data);
+
         setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -71,8 +57,6 @@ export function useFetchData() {
 
   return {
     productsData,
-    product,
-    setProduct,
     getProducts,
     isLoading,
     currentPage,

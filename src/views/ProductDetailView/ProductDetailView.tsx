@@ -4,13 +4,16 @@ import { useFetchData } from "../../hooks/useFetchData";
 
 export default function ProductDetailView() {
   const { id } = useParams();
-  const { getProducts, isLoading,product, } = useFetchData();
+  const { getProducts, isLoading, productsData } = useFetchData();
+
+  console.log(productsData);
 
   useEffect(() => {
-    id && getProducts(id,);
+    id && getProducts(id);
   }, [id]);
 
   isLoading && <div>... loading </div>;
+
   return (
     <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
       <div className="container px-4 mx-auto">
@@ -43,7 +46,7 @@ export default function ProductDetailView() {
                   className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
                   href="#"
                 >
-                  <span>{product.category}</span>
+                  <span>{productsData.category}</span>
                   <svg
                     className="ml-6"
                     width="4"
@@ -64,7 +67,7 @@ export default function ProductDetailView() {
                   className="text-xs font-medium text-indigo-500 hover:text-indigo-600"
                   href="#"
                 >
-                  {product.title}
+                  {productsData.title}
                 </a>
               </li>
             </ul>
@@ -149,20 +152,22 @@ export default function ProductDetailView() {
           <div className="w-full lg:w-1/2 px-4">
             <div className="max-w-md mb-6">
               <span className="text-xs text-gray-400 tracking-wider">
-                {product.brand}
+                {productsData.brand}
               </span>
               <h2 className="mt-6 mb-4 text-xl md:text-2xl lg:text-3xl font-heading font-medium">
-                {product.title}
+                {productsData.title}
               </h2>
               <p className="flex items-center mb-6">
                 <span className="mr-2 text-sm text-blue-500 font-medium">
                   $
                 </span>
                 <span className="text-xl text-blue-500 font-medium">
-                  {product.price}
+                  {productsData.price}
                 </span>
               </p>
-              <p className="text-lg text-gray-400">{product.description}</p>
+              <p className="text-lg text-gray-400">
+                {productsData.description}
+              </p>
             </div>
             <div className="flex mb-6 items-center">
               <div className="inline-flex mr-4">
@@ -237,7 +242,9 @@ export default function ProductDetailView() {
                   </svg>
                 </button>
               </div>
-              <span className="text-md text-gray-400">{product.rating}</span>
+              <span className="text-md text-gray-400">
+                {productsData.rating}
+              </span>
             </div>
 
             <div className="flex flex-wrap -mx-2 mb-12">
