@@ -18,7 +18,7 @@ export default function SearchResults() {
   } = useFetchData();
 
   useEffect(() => {
-    getProducts(searchKeyword, "search");
+    getProducts("", `${searchKeyword}`, "");
   }, [getProducts, searchKeyword]);
 
   return (

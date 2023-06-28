@@ -3,52 +3,49 @@ import axios from "axios";
 import { PAGINATION_LIMIT } from "../config/pagination.config";
 import type { PaginationProps } from "antd";
 
-import { TProduct } from "../types/Tproduct";
+import { TProduct, TProductsList } from "../types/Tproduct";
 import { baseURL } from "../config/baseURL.config";
 
 export function useFetchData() {
-  const [products, setProducts] = useState<TProduct[]>([]);
+  const [productsData, setProductsData] = useState<TProduct[]>([]);
+  const [singleProduct, setSingleProduct] = useState<TProduct | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
 
-  const calculateSkip = (currentPage: number, limit: number) => {
-    return (currentPage - 1) * limit; // Added the return statement
-  };
-  const skipPages = calculateSkip(currentPage, PAGINATION_LIMIT);
-
   const getProducts = useCallback(
-    async (
-      searchKeyword?: string,
-      searchQuerry?: string,
-      limit?: number,
-      skip?: number
-    ) => {
+    async (id?: string, searchKeyword?: string, endpoint?: string) => {
       setIsLoading(true);
       try {
-        const endpoint = `${baseURL}/products`;
-        const searchEndpoint = `${baseURL}/products/search`;
-        let response;
+        const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
+        let url = "";
 
-        if (searchQuerry) {
-          response = await axios.get(searchEndpoint, {
-            params: {
-              q: searchKeyword,
-              limit: limit || PAGINATION_LIMIT,
-              skip: skip || skipPages,
-            },
-          });
+        if (id) {
+          url = `${baseURL}/products/${id}`;
+        } else if (endpoint) {
+          url = `${baseURL}/products/${endpoint}`;
+        } else if (searchKeyword) {
+          url = `${baseURL}/products/search?q=${searchKeyword}`;
         } else {
-          response = await axios.get(endpoint, {
-            params: {
-              limit: limit || PAGINATION_LIMIT,
-              skip: skip || skipPages,
-            },
-          });
+          url = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
+            skipPages || 0
+          }`;
         }
 
+        const response = await axios.get(url);
+
         const { data } = response;
-        setProducts(data.products);
+
+        if (id) {
+          setSingleProduct(data as TProduct);
+          setProductsData([]);
+        } else if (endpoint) {
+          setProductsData(data);
+          setSingleProduct(null);
+        } else {
+          setSingleProduct(null);
+          setProductsData(data.products);
+        }
         setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -56,7 +53,7 @@ export function useFetchData() {
         setIsLoading(false);
       }
     },
-    [skipPages]
+    [currentPage]
   );
 
   const onChange: PaginationProps["onChange"] = (page) => {
@@ -64,7 +61,8 @@ export function useFetchData() {
   };
 
   return {
-    products,
+    productsData,
+    singleProduct,
     getProducts,
     isLoading,
     currentPage,
