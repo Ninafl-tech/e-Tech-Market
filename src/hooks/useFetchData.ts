@@ -7,7 +7,8 @@ import { TProduct, TProductsList } from "../types/Tproduct";
 import { baseURL } from "../config/baseURL.config";
 
 export function useFetchData() {
-  const [productsData, setProductsData] = useState<TProduct[] | TProduct>([]);
+  const [productsData, setProductsData] = useState<TProduct[]>([]);
+  const [singleProduct, setSingleProduct] = useState<TProduct | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -34,12 +35,12 @@ export function useFetchData() {
         const { data } = response;
 
         if (id) {
-          setProductsData(data);
+          setSingleProduct(data as TProduct);
+          setProductsData([]);
         } else {
+          setSingleProduct(null);
           setProductsData(data.products);
         }
-
-        console.log(data);
 
         setTotalItems(data.total);
       } catch (error) {
@@ -57,6 +58,7 @@ export function useFetchData() {
 
   return {
     productsData,
+    singleProduct,
     getProducts,
     isLoading,
     currentPage,
