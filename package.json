@@ -24,6 +24,7 @@
     "react-router-dom": "^6.12.1",
     "styled-components": "^6.0.0-rc.3",
     "styled-icons": "^10.47.0",
+    "swiper": "^9.4.1",
     "twin.macro": "^3.3.1",
     "vite-plugin-babel-macros": "^1.0.6"
   },

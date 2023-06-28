@@ -15,7 +15,7 @@ export default function ProductDetailView() {
   return (
     <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
       <div className="container px-4 mx-auto">
-        <div className="flex flex-wrap -mx-4">
+        <div className="flex  -mx-4">
           <div className="w-full px-4">
             <ul className="flex flex-wrap items-center mb-16">
               <li className="mr-6">
