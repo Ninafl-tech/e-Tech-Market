@@ -15,6 +15,8 @@ const LoginView = lazy(() => import("./views/LoginView/LoginView"));
 const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
 const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 
+const Modal = lazy(() => import("./views/ModalView/Modal/Modal"));
+
 function App() {
   const { status } = useContext(AuthContext);
 
@@ -42,6 +44,9 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
+              <Route path="/modal" element={<Modal visible={false} onChangeVisible={()=>{} }>
+                {<div>omg</div>}
+                </Modal>}/>
             </Route>
           </Routes>
         );

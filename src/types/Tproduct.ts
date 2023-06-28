@@ -2,7 +2,7 @@ export type TProduct = {
   brand: string;
   price: number;
   rating: number;
-  id: number;
+  id: string;
   title: string;
   images: string[];
   category: string;
@@ -13,7 +13,7 @@ export type TProduct = {
 export type TProductsList = {
   product: {
     name: string;
-    id: number;
+    id: string;
     title: string;
     images: string[];
     category: string;
