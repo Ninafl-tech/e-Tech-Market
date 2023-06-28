@@ -1,16 +1,39 @@
+// import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router";
+// import { useFetchData } from "../../hooks/useFetchData";
+
+// export default function ProductDetailView() {
+//   const { id } = useParams();
+//   const { getProducts, isLoading,product, } = useFetchData();
+
+//   useEffect(() => {
+//     id && getProducts(id,);
+//   }, [id]);
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useFetchData } from "../../hooks/useFetchData";
+import axios from "axios";
+import { TProduct } from "../../types/Tproduct";
 
 export default function ProductDetailView() {
   const { id } = useParams();
-  const { getProducts, isLoading,product, } = useFetchData();
+
+  const [product, setProduct] = useState({} as TProduct);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  async function getOneProduct(userId: string) {
+    setLoading(true);
+    const resp = await axios.get(`https://dummyjson.com/products/${userId}`);
+    setProduct(resp.data);
+
+    setLoading(false);
+  }
 
   useEffect(() => {
-    id && getProducts(id,);
+    id && getOneProduct(id);
   }, [id]);
 
-  isLoading && <div>... loading </div>;
+  loading && <div>... loading </div>;
   return (
     <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
       <div className="container px-4 mx-auto">

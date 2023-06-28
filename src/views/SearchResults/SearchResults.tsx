@@ -18,7 +18,7 @@ export default function SearchResults() {
   } = useFetchData();
 
   useEffect(() => {
-    getProducts("",`${searchKeyword}`);
+    getProducts(`${searchKeyword}`);
   }, [getProducts, searchKeyword]);
 
   return (
@@ -51,4 +51,3 @@ export default function SearchResults() {
     </>
   );
 }
-
