@@ -14,29 +14,34 @@ export function useFetchData() {
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProducts = useCallback(
-    async (id?: string, searchKeyword?: string) => {
+    async (id?: string, searchKeyword?: string, endpoint?: string) => {
       setIsLoading(true);
       try {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
-        let endpoint = "";
+        let url = "";
 
         if (id) {
-          endpoint = `${baseURL}/products/${id}`;
+          url = `${baseURL}/products/${id}`;
+        } else if (endpoint) {
+          url = `${baseURL}/products/${endpoint}`;
         } else if (searchKeyword) {
-          endpoint = `${baseURL}/products/search?q=${searchKeyword}`;
+          url = `${baseURL}/products/search?q=${searchKeyword}`;
         } else {
-          endpoint = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
+          url = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
             skipPages || 0
           }`;
         }
 
-        const response = await axios.get(endpoint);
+        const response = await axios.get(url);
 
         const { data } = response;
 
         if (id) {
           setSingleProduct(data as TProduct);
           setProductsData([]);
+        } else if (endpoint) {
+          setProductsData(data);
+          setSingleProduct(null);
         } else {
           setSingleProduct(null);
           setProductsData(data.products);

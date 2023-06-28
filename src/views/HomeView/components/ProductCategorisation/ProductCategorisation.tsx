@@ -1,48 +1,31 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import React from "react";
 import { NavCategory } from "../Navigation/NavCategories/NavCategory/NavCategory";
-
-type ProductData = {
-  id: number;
-  title: string;
-  images: string;
-  description: string;
-  category: string;
-};
+import { useFetchData } from "../../../../hooks/useFetchData";
 
 export function ProductCategorisation() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { productsData, getProducts, isLoading } = useFetchData();
   const [error, setError] = useState("");
 
-  async function getcategories() {
-    try {
-      setError("");
-      setLoading(true);
-      const resp = await axios.get(`https://dummyjson.com/products/categories`);
-      setCategories(resp.data);
-      console.log(resp.data);
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      setError(error.message || "An error occurred.");
-    }
-  }
+  console.log(productsData);
 
   useEffect(() => {
-    getcategories();
+    getProducts("", "", "categories");
   }, []);
 
   return (
     <div>
       {error && <div>Error</div>}
-      {loading ? (
+      {isLoading ? (
         <div>Loading...</div>
-      ) : categories ? (
+      ) : productsData ? (
         <ul>
-          {categories.map((category) => (
-            <NavCategory key={category} category={category} />
+          {productsData.map((product, index) => (
+            <NavCategory
+              key={index}
+              category={
+                typeof product === "string" ? product : product.category
+              }
+            />
           ))}
         </ul>
       ) : null}
