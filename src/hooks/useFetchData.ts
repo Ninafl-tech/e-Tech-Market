@@ -46,6 +46,7 @@ export function useFetchData() {
           setSingleProduct(null);
           setProductsData(data.products);
         }
+
         setTotalItems(data.total);
       } catch (error) {
         console.error("Error fetching products:", error);
