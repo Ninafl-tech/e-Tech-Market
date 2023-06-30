@@ -25,26 +25,26 @@ export function useFetchData() {
         } else if (endpoint) {
           url = `${baseURL}/products/${endpoint}`;
         } else if (searchKeyword) {
-          url = `${baseURL}/products/search?q=${searchKeyword}`;
+          url = `${baseURL}/products?search=${searchKeyword}`;
         } else {
-          url = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
-            skipPages || 0
-          }`;
+          url = `${baseURL}/products`;
         }
 
         const response = await axios.get(url);
 
         const { data } = response;
 
+        console.log(data.id);
+
         if (id) {
-          setSingleProduct(data as TProduct);
+          setSingleProduct(data);
           setProductsData([]);
         } else if (endpoint) {
           setProductsData(data);
           setSingleProduct(null);
         } else {
           setSingleProduct(null);
-          setProductsData(data.products);
+          setProductsData(data);
         }
 
         setTotalItems(data.total);
