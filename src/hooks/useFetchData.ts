@@ -14,7 +14,7 @@ export function useFetchData() {
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProducts = useCallback(
-    async (id?: string, searchKeyword?: string, endpoint?: string) => {
+    async (id?: string, searchKeyword?: string) => {
       setIsLoading(true);
       try {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
@@ -22,12 +22,12 @@ export function useFetchData() {
 
         if (id) {
           url = `${baseURL}/products/${id}`;
-        } else if (endpoint) {
-          url = `${baseURL}/products/${endpoint}`;
         } else if (searchKeyword) {
           url = `${baseURL}/products?search=${searchKeyword}`;
         } else {
-          url = `${baseURL}/products`;
+          url = `${baseURL}/products?skip=${
+            skipPages || 0
+          } &take=${PAGINATION_LIMIT}`;
         }
 
         const response = await axios.get(url);
@@ -39,9 +39,6 @@ export function useFetchData() {
         if (id) {
           setSingleProduct(data);
           setProductsData([]);
-        } else if (endpoint) {
-          setProductsData(data);
-          setSingleProduct(null);
         } else {
           setSingleProduct(null);
           setProductsData(data);
