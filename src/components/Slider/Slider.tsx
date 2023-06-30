@@ -21,7 +21,7 @@ export function Slider() {
         <div></div>
       </Carousel>
 
-      <p>Start editing to see some magic happen :)</p>
+      <p>Start editing to see some magic happen :</p>
     </div>
   );
 }

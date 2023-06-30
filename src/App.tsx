@@ -15,6 +15,11 @@ const LoginView = lazy(() => import("./views/LoginView/LoginView"));
 const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
 const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 
+const AdminView = lazy(() => import("./views/AdminView/AdminView"));
+const ProductTableView = lazy(
+  () => import("./views/ProductTableView/ProductTableView")
+);
+
 const Modal = lazy(() => import("./views/ModalView/Modal/Modal"));
 
 function App() {
@@ -44,9 +49,16 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              <Route path="/modal" element={<Modal visible={false} onChangeVisible={()=>{} }>
-                {<div>omg</div>}
-                </Modal>}/>
+              <Route path="admin" element={<AdminView />} />
+              <Route path="admin/products" element={<ProductTableView />} />
+              <Route
+                path="/modal"
+                element={
+                  <Modal visible={false} onChangeVisible={() => {}}>
+                    {<div>omg</div>}
+                  </Modal>
+                }
+              />
             </Route>
           </Routes>
         );
