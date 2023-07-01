@@ -4,7 +4,7 @@ import { PAGINATION_LIMIT } from "../config/pagination.config";
 import type { PaginationProps } from "antd";
 
 import { TProduct, TProductsList } from "../types/Tproduct";
-import { baseURL } from "../config/baseURL.config";
+import { baseURL } from "./../config/baseURL.config";
 
 export function useFetchData() {
   const [productsData, setProductsData] = useState<TProduct[]>([]);
@@ -14,7 +14,7 @@ export function useFetchData() {
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProducts = useCallback(
-    async (id?: string, searchKeyword?: string, endpoint?: string) => {
+    async (id?: string, searchKeyword?: string) => {
       setIsLoading(true);
       try {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
@@ -22,29 +22,26 @@ export function useFetchData() {
 
         if (id) {
           url = `${baseURL}/products/${id}`;
-        } else if (endpoint) {
-          url = `${baseURL}/products/${endpoint}`;
         } else if (searchKeyword) {
-          url = `${baseURL}/products/search?q=${searchKeyword}`;
+          url = `${baseURL}/products?search=${searchKeyword}`;
         } else {
-          url = `${baseURL}/products?limit=${PAGINATION_LIMIT}&skip=${
+          url = `${baseURL}/products?skip=${
             skipPages || 0
-          }`;
+          } &take=${PAGINATION_LIMIT}`;
         }
 
         const response = await axios.get(url);
 
         const { data } = response;
 
+        console.log(data.id);
+
         if (id) {
-          setSingleProduct(data as TProduct);
+          setSingleProduct(data);
           setProductsData([]);
-        } else if (endpoint) {
-          setProductsData(data);
-          setSingleProduct(null);
         } else {
           setSingleProduct(null);
-          setProductsData(data.products);
+          setProductsData(data);
         }
 
         setTotalItems(data.total);

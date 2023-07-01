@@ -1,11 +1,14 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../provider/CurrentUserProvider";
+import jwt_decode from "jwt-decode";
 
 import { useForm } from "react-hook-form";
 import { Tlocalstorage } from "../../types/TlocalStorage";
 import { AuthContext, TAuthorizationStatus } from "../../contexts/AuthContext";
 import { useContext } from "react";
+import { baseURL } from "../../config/baseURL.config";
 
 type TLoginForm = {
   email: string;
@@ -13,6 +16,9 @@ type TLoginForm = {
 };
 
 export default function LoginView() {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
+  console.log(currentUser);
   const { setStatus } = useContext(AuthContext);
   const {
     register,
@@ -23,9 +29,15 @@ export default function LoginView() {
 
   async function onSubmit(data: TLoginForm) {
     try {
-      const resp = await axios.post("http://localhost:8080/login", data);
-      if (resp.data.AccessToken) {
-        localStorage.setItem(Tlocalstorage.ACCESSTOKEN, resp.data.AccessToken);
+      const resp = await axios.post(`${baseURL}/auth/signin`, data);
+      console.log(resp.data.accessToken);
+      if (resp.data.accessToken) {
+        localStorage.setItem("access-token", resp.data.accessToken);
+        const decodedToken = jwt_decode(resp.data.accessToken);
+        setCurrentUser({
+          user_id: (decodedToken as { id: string; role: string }).id,
+          user_role: (decodedToken as { id: string; role: string }).role,
+        });
         setStatus(TAuthorizationStatus.AUTHORIZED);
       }
     } catch (error: any) {

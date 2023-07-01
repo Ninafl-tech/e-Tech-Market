@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { baseURL } from "../../../../config/baseURL.config";
 
 type TaddProductForm = {
-  Title: string;
-  Category: string;
-  Price: number;
-  Description: string;
-  Upload: string;
+  title: string;
+  category: string;
+  price: number;
+  description: string;
 };
 
 export function AddProduct() {
   const [added, setAdded] = useState<boolean>(false);
+  const [title, setTile] = useState("");
+  const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
 
   const {
     register,
@@ -23,9 +27,18 @@ export function AddProduct() {
 
   async function onSubmit(data: TaddProductForm) {
     try {
-      const resp = await axios.post("https://dummyjson.com/products/add", data);
-      if (resp.status === 201 || resp.status === 200) {
+      const resp = await axios.post(
+        `http://localhost:3001/products`,
+        { title: title, description: desc, price: +price, category: category },
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNWRmM2U4LTRlNjItNDIzMS04ZTFmLWFiNzMzZDA2N2ZkYiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4ODEzODgzMywiZXhwIjoxNjg4MjI1MjMzfQ.4OABF9AkX8TccqWbSHojlyjKIG0w7jdcY7NfzduMJk0`,
+          },
+        }
+      );
+      if (resp.data) {
         setAdded(true);
+        console.log(resp.data);
       }
     } catch (error: any) {
       setError("root", { message: "something went wrong" });
@@ -48,21 +61,25 @@ export function AddProduct() {
               >
                 <div>
                   <label
-                    htmlFor="Title"
+                    htmlFor="title"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Product Title
+                    Product title
                   </label>
                   <input
-                    {...register("Title", { required: true })}
+                    // {...register("title", { required: true })}
+                    // type="text"
+                    // name="title"
+                    // id="title"
+                    // className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    // placeholder="title"
+                    // required
+                    value={title}
+                    onChange={(e) => setTile(e.target.value)}
                     type="text"
-                    name="Title"
-                    id="Title"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Title"
-                    required
+                    className="w-full"
                   />
-                  {errors.Title && (
+                  {errors.title && (
                     <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                       <span className="font-medium">Oh, snapp!</span> Some error
                       message.
@@ -71,21 +88,25 @@ export function AddProduct() {
                 </div>
                 <div>
                   <label
-                    htmlFor="Category"
+                    htmlFor="category"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Product Category
+                    Product category
                   </label>
                   <input
-                    {...register("Category", { required: true })}
+                    // {...register("category", { required: true })}
+                    // type="text"
+                    // name="category"
+                    // id="category"
+                    // placeholder="category"
+                    // className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    // required
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
                     type="text"
-                    name="Category"
-                    id="Category"
-                    placeholder="category"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    className="w-full"
                   />
-                  {errors.Category && (
+                  {errors.category && (
                     <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                       <span className="font-medium">Oh, snapp!</span> Some error
                       message.
@@ -94,21 +115,25 @@ export function AddProduct() {
                 </div>
                 <div>
                   <label
-                    htmlFor="Price"
+                    htmlFor="price"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Price
+                    price
                   </label>
                   <input
-                    {...register("Price", { required: true })}
+                    // {...register("price", { required: true })}
+                    // type="number"
+                    // name="price"
+                    // id="price"
+                    // placeholder="price"
+                    // className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    // required
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                     type="text"
-                    name="Price"
-                    id="Price"
-                    placeholder="price"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    className="w-full"
                   />
-                  {errors.Price && (
+                  {errors.price && (
                     <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                       <span className="font-medium">Oh, snapp!</span> Some error
                       message.
@@ -117,21 +142,25 @@ export function AddProduct() {
                 </div>
                 <div>
                   <label
-                    htmlFor="Description"
+                    htmlFor="description"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Description
+                    description
                   </label>
                   <input
-                    {...register("Description", { required: true })}
+                    // {...register("description", { required: true })}
+                    // type="text"
+                    // name="description"
+                    // id="description"
+                    // className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    // placeholder="description"
+                    // required
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
                     type="text"
-                    name="Description"
-                    id="Description"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Description"
-                    required
+                    className="w-full"
                   />
-                  {errors.Description && (
+                  {errors.description && (
                     <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                       <span className="font-medium">Oh, snapp!</span> Some error
                       message.
