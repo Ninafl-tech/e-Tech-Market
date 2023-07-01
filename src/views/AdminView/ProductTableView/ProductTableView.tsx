@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { TProduct } from "../../types/Tproduct";
+import { TProduct } from "../../../types/Tproduct";
 import { Pagination } from "antd";
-import { PAGINATION_LIMIT } from "../../config/pagination.config";
-import { useFetchData } from "../../hooks/useFetchData";
+import { PAGINATION_LIMIT } from "../../../config/pagination.config";
+import { useFetchData } from "../../../hooks/useFetchData";
 
 export default function ProductTableView() {
   const {

@@ -20,8 +20,8 @@ export function Product({ product }: TProductsList) {
       >
         <img
           className="w-full max-h-60"
-          src={product.images[0]}
-          alt={product.name}
+          // src={product.images[0]}
+          // alt={product.name}
         />
         <div className="px-5 py-3 flex justify-between items-center">
           <div className="font-bold text-base mb-2">{product.title}</div>

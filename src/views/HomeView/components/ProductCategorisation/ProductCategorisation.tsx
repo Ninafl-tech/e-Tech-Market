@@ -7,7 +7,7 @@ export function ProductCategorisation() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getProducts("", "", "categories");
+    getProducts("", "");
   }, []);
 
   return (
@@ -18,12 +18,7 @@ export function ProductCategorisation() {
       ) : productsData ? (
         <ul>
           {productsData.map((product, index) => (
-            <NavCategory
-              key={index}
-              category={
-                typeof product === "string" ? product : product.category
-              }
-            />
+            <NavCategory key={index} category={product.category} />
           ))}
         </ul>
       ) : null}

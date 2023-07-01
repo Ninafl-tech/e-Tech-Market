@@ -1,1 +1,1 @@
-export const baseURL = "https://dummyjson.com";
+export const baseURL = "http://localhost:3001";
