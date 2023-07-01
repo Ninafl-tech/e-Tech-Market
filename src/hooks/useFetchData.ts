@@ -4,7 +4,7 @@ import { PAGINATION_LIMIT } from "../config/pagination.config";
 import type { PaginationProps } from "antd";
 
 import { TProduct, TProductsList } from "../types/Tproduct";
-import { baseURL } from "../config/baseURL.config";
+import { baseURL } from "./../config/baseURL.config";
 
 export function useFetchData() {
   const [productsData, setProductsData] = useState<TProduct[]>([]);
