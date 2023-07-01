@@ -6,16 +6,18 @@ import "antd/dist/reset.css";
 import "./index.css";
 import { AuthProvider } from "./provider/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
-
+import { CurrentUserProvider } from "./provider/CurrentUserProvider";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <CurrentUserProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </CurrentUserProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
