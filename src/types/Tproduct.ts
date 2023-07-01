@@ -1,8 +1,17 @@
-export type Productprops = {
+export type TProduct = {
+  price: number;
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+};
+
+export type TProductsList = {
   product: {
-    id: number;
+    id: string;
     title: string;
-    images: string;
     category: string;
+    description: string;
+    price: number;
   };
 };

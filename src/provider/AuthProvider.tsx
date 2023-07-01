@@ -11,7 +11,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   );
 
   useEffect(() => {
-    const token = localStorage.getItem(Tlocalstorage.ACCESSTOKEN);
+    const token = localStorage.getItem("access-token");
     if (token) {
       setStatus(TAuthorizationStatus.AUTHORIZED);
       console.log(status);
