@@ -1,23 +1,22 @@
 import { NavCategories } from "./NavCategories/NavCategories";
-import { NavContent } from "./NavCategories/NavCategory/NavContent/NavContent";
 import { NavContext } from "./context/NavContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { StContent, StCategories } from "./StNavigation.styled";
 
 export function Navigation() {
-  // const { productsData } = useContext(NavContext);
-  // console.log(productsData);
+  const [activeCategory, setActiveCategory] = useState<string>("");
+
   return (
-    // <NavContext.Provider value={{ productsData }}>
-    <>
-      <div className="flex w-72 relative">
-        <NavCategories />
-      </div>
-      {/* <div className="content">
-        {productsData.map((product, index) => (
-          <NavContent key={index} product={product} />
-        ))}
-      </div> */}
-    </>
-    // </NavContext.Provider>
+    <NavContext.Provider value={{ activeCategory, setActiveCategory }}>
+      <StCategories className="flex  relative">
+        <div
+          className="w-72"
+          // onMouseLeave={() => setActiveCategory("")}
+        >
+          <NavCategories />
+        </div>
+        <StContent className="bg-red relative">contenti</StContent>
+      </StCategories>
+    </NavContext.Provider>
   );
 }

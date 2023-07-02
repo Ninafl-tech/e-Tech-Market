@@ -1,28 +1,36 @@
 import { useFetchData } from "../../../../../../hooks/useFetchData";
-import { NavContent } from "./NavContent/NavContent";
+import { NavContext } from "../../context/NavContext";
+// import { NavContent } from "./NavContent/NavContent";
+import React, { useContext } from "react";
+import { StNavContent } from "./StNavContent.styled";
 
 export function NavCategory({ category }: { category: string }) {
   const { productsData, getProducts, isLoading } = useFetchData();
-  //
+  const { activeCategory, setActiveCategory } = useContext(NavContext);
 
-  const handleClick = () => {
+  const handleHover = () => {
     getProducts("", "", category);
+    setActiveCategory(category);
   };
+
   console.log(productsData);
+  console.log(activeCategory);
 
   return (
-    <div className="flex">
-      <div
-        className=" w-full p-2 cursor-pointer text-center border-b-2"
-        onClick={handleClick}
-      >
-        {category}
-      </div>
-      <div className="content">
-        {productsData.map((product, index) => (
-          <NavContent key={index} product={product} />
-        ))}
-      </div>
+    <div
+      className="flex w-full p-12 cursor-pointer text-center border-b-2"
+      onMouseEnter={handleHover}
+    >
+      <div>{category}</div>
+      {activeCategory === category && (
+        <StNavContent>
+          {productsData.map((product, index) => (
+            <div key={index}>
+              <div>{product.title}</div>
+            </div>
+          ))}
+        </StNavContent>
+      )}
     </div>
   );
 }
