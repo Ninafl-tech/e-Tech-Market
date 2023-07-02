@@ -28,22 +28,19 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        {status === TAuthorizationStatus.UNAUTHORIZED ||
-          (status === TAuthorizationStatus.AUTHORIZED && (
-            <Route element={<PublicLayout />}>
-              <Route path="/" element={<HomeView />} />
-              <Route path="/products" element={<ProductsView />} />
-              <Route path="/products/:id" element={<ProductDetailView />} />
-              <Route
-                path="/searchResults/:searchKeyword"
-                element={<SearchResults />}
-              />
-              <Route path="/cart" element={<CartView />} />
-              <Route path="/login" element={<LoginView />} />
-              <Route path="/register" element={<RegisterView />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Route>
-          ))}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomeView />} />
+          <Route path="/products" element={<ProductsView />} />
+          <Route path="/products/:id" element={<ProductDetailView />} />
+          <Route
+            path="/searchResults/:searchKeyword"
+            element={<SearchResults />}
+          />
+          <Route path="/cart" element={<CartView />} />
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/register" element={<RegisterView />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
         {status === TAuthorizationStatus.AUTHORIZED && (
           <Route element={<PrivateLayout />}>
             <Route path="/pay" element={<PaymentView />} />

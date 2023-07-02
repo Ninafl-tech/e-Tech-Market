@@ -5,6 +5,7 @@ import type { PaginationProps } from "antd";
 
 import { TProduct, TProductsList } from "../types/Tproduct";
 import { baseURL } from "./../config/baseURL.config";
+import { Category } from "@styled-icons/boxicons-solid";
 
 export function useFetchData() {
   const [productsData, setProductsData] = useState<TProduct[]>([]);
@@ -14,7 +15,7 @@ export function useFetchData() {
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const getProducts = useCallback(
-    async (id?: string, searchKeyword?: string) => {
+    async (id?: string, searchKeyword?: string, category?: string) => {
       setIsLoading(true);
       try {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
@@ -24,6 +25,8 @@ export function useFetchData() {
           url = `${baseURL}/products/${id}`;
         } else if (searchKeyword) {
           url = `${baseURL}/products?search=${searchKeyword}`;
+        } else if (category) {
+          url = `${baseURL}/products?category=${category}`;
         } else {
           url = `${baseURL}/products?skip=${
             skipPages || 0
@@ -33,8 +36,6 @@ export function useFetchData() {
         const response = await axios.get(url);
 
         const { data } = response;
-
-        console.log(data.id);
 
         if (id) {
           setSingleProduct(data);
