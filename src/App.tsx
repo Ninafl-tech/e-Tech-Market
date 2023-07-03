@@ -25,76 +25,111 @@ function App() {
   const { status } = useContext(AuthContext);
   const { currentUser } = useContext(CurrentUserContext);
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/products" element={<ProductsView />} />
-          <Route path="/products/:id" element={<ProductDetailView />} />
-          <Route
-            path="/searchResults/:searchKeyword"
-            element={<SearchResults />}
-          />
-          <Route path="/cart" element={<CartView />} />
-          <Route path="/login" element={<LoginView />} />
-          <Route path="/register" element={<RegisterView />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Route>
-        {status === TAuthorizationStatus.AUTHORIZED && (
-          <Route element={<PrivateLayout />}>
-            <Route path="/pay" element={<PaymentView />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Route>
-        )}
-        {status === TAuthorizationStatus.AUTHORIZED &&
-          currentUser.user_role === "ADMIN" && (
-            <>
-              <Route path="/admin" element={<AdminView />} />
-              <Route path="admin/products" element={<ProductTableView />} />
-            </>
-          )}
-      </Routes>
-    </Suspense>
-  );
+  // return (
+  //   <Suspense fallback={<div>Loading...</div>}>
+  //     <Routes>
+  //       {status === TAuthorizationStatus.UNAUTHORIZED ||
+  //         status === TAuthorizationStatus.AUTHORIZED ||
+  //         (currentUser.user_role === "ADMIN" && (
+  //           <Route element={<PublicLayout />}>
+  //             <Route path="/" element={<HomeView />} />
+  //             <Route path="/products" element={<ProductsView />} />
+  //             <Route path="/products/:id" element={<ProductDetailView />} />
+  //             <Route
+  //               path="/searchResults/:searchKeyword"
+  //               element={<SearchResults />}
+  //             />
+  //             <Route path="/cart" element={<CartView />} />
+  //             <Route path="/login" element={<LoginView />} />
+  //             <Route path="/register" element={<RegisterView />} />
+  //             <Route path="*" element={<Navigate to="/" />} />
+  //           </Route>
+  //         ))}
 
-  // const handleRoots = useCallback((status: TAuthorizationStatus) => {
-  // switch (status) {
-  //   case TAuthorizationStatus.AUTHORIZED:
-  //     return (
-  //       <Routes>
+  //       {status === TAuthorizationStatus.AUTHORIZED && (
   //         <Route element={<PrivateLayout />}>
-  //           <Route path="/admin" element={<AdminView />} />
-  //           <Route path="*" element={<Navigate to="/" />} />
-  //           {currentUser.user_role === "admin" ? (
-  //             <Route path="admin/products" element={<ProductTableView />} />
-  //           ) : (
-  //             <Route path="admin/products" element={<Navigate to="/" />} />
-  //           )}
-  //         </Route>
-  //       </Routes>
-  //     );
-  //   case TAuthorizationStatus.UNAUTHORIZED:
-  //     return (
-  //       <Routes>
-  //         <Route element={<PublicLayout />}>
   //           <Route path="/" element={<HomeView />} />
-  //           <Route path="/products/:id" element={<ProductDetailView />} />
-  //           <Route path="/login" element={<LoginView />} />
-  //           <Route path="/register" element={<RegisterView />} />
   //           <Route path="/products" element={<ProductsView />} />
+  //           <Route path="/products/:id" element={<ProductDetailView />} />
   //           <Route
   //             path="/searchResults/:searchKeyword"
   //             element={<SearchResults />}
   //           />
-  //           <Route path="admin/products" element={<ProductTableView />} />
+  //           <Route path="/cart" element={<CartView />} />
+  //           <Route path="/login" element={<LoginView />} />
+  //           <Route path="/register" element={<RegisterView />} />
+  //           <Route path="/pay" element={<PaymentView />} />
+  //           <Route path="*" element={<Navigate to="/" />} />
   //         </Route>
-  //       </Routes>
-  //     );
-  // }
-  // }, []);
+  //       )}
+  //       {status === TAuthorizationStatus.AUTHORIZED &&
+  //         currentUser.user_role === "ADMIN" && (
+  //           <Route element={<PrivateLayout />}>
+  //             <Route path="/admin" element={<AdminView />} />
+  //             <Route path="/" element={<HomeView />} />
+  //             <Route path="/products" element={<ProductsView />} />
+  //             <Route path="/products/:id" element={<ProductDetailView />} />
+  //             <Route
+  //               path="/searchResults/:searchKeyword"
+  //               element={<SearchResults />}
+  //             />
+  //             <Route path="/cart" element={<CartView />} />
+  //             <Route path="/login" element={<LoginView />} />
+  //             <Route path="/register" element={<RegisterView />} />
+  //             <Route path="/pay" element={<PaymentView />} />
+  //             <Route path="admin/products" element={<ProductTableView />} />
+  //             <Route path="*" element={<Navigate to="/" />} />
+  //           </Route>
+  //         )}
+  //     </Routes>
+  //   </Suspense>
+  // );
 
-  // return <Suspense>{handleRoots(status)}</Suspense>;
+  const handleRoots = useCallback((status: TAuthorizationStatus) => {
+    switch (status) {
+      case TAuthorizationStatus.AUTHORIZED:
+        return (
+          <Routes>
+            <Route element={<PrivateLayout />}>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/products" element={<ProductsView />} />
+              <Route path="/products/:id" element={<ProductDetailView />} />
+              <Route
+                path="/searchResults/:searchKeyword"
+                element={<SearchResults />}
+              />
+              <Route path="/cart" element={<CartView />} />
+              <Route path="/login" element={<LoginView />} />
+              <Route path="/register" element={<RegisterView />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              {currentUser.user_role === "ADMIN" && (
+                <Route path="/admin" element={<AdminView />} />
+              )}
+            </Route>
+          </Routes>
+        );
+      case TAuthorizationStatus.UNAUTHORIZED:
+        return (
+          <Routes>
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/products" element={<ProductsView />} />
+              <Route path="/products/:id" element={<ProductDetailView />} />
+              <Route
+                path="/searchResults/:searchKeyword"
+                element={<SearchResults />}
+              />
+              <Route path="/cart" element={<CartView />} />
+              <Route path="/login" element={<LoginView />} />
+              <Route path="/register" element={<RegisterView />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Route>
+          </Routes>
+        );
+    }
+  }, []);
+
+  return <Suspense>{handleRoots(status)}</Suspense>;
 }
 
 export default App;

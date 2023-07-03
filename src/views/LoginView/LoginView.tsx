@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../provider/CurrentUserProvider";
 import jwt_decode from "jwt-decode";
 
@@ -17,9 +17,9 @@ type TLoginForm = {
 
 export default function LoginView() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-
+  const navigate = useNavigate();
   console.log(currentUser);
-  const { setStatus } = useContext(AuthContext);
+  const { status, setStatus } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -39,11 +39,15 @@ export default function LoginView() {
           user_role: (decodedToken as { id: string; role: string }).role,
         });
         setStatus(TAuthorizationStatus.AUTHORIZED);
+        if (currentUser.user_role === "ADMIN") {
+          navigate("/admin");
+        }
       }
     } catch (error: any) {
       setError("root", { message: "something went wrong" });
     }
   }
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
