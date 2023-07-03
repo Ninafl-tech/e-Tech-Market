@@ -7,7 +7,7 @@ import { PublicLayout } from "./layouts/PublicLayout/PublicLayout";
 import { PrivateLayout } from "./layouts/PrivateLayout/PrivateLayout";
 
 const HomeView = lazy(() => import("./views/HomeView/HomeView"));
-const ProductsView = lazy(() => import("./views/ProductsView/ProductsView"));
+const ProductsView = lazy(() => import("./views/ProductsViews/ProductsView"));
 const ProductDetailView = lazy(
   () => import("./views/ProductDetailView/ProductDetailView")
 );

@@ -21,17 +21,17 @@ export function useFetchData() {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
         let url = "";
 
-        if (id) {
-          url = `${baseURL}/products/${id}`;
-        } else if (searchKeyword) {
-          url = `${baseURL}/products?search=${searchKeyword}`;
-        } else if (category) {
-          url = `${baseURL}/products?category=${category}`;
-        } else {
-          url = `${baseURL}/products?skip=${
-            skipPages || 0
-          } &take=${PAGINATION_LIMIT}`;
-        }
+        // if (id) {
+        //   url = `${baseURL}/products/${id}`;
+        // } else if (searchKeyword) {
+        //   url = `${baseURL}/products?search=${searchKeyword}`;
+        // } else if (category) {
+        //   url = `${baseURL}/products?category=${category}`;
+        // } else {
+        //   url = `${baseURL}/products?skip=${
+        //     skipPages || 0
+        //   } &take=${PAGINATION_LIMIT}`;
+        // }
 
         const response = await axios.get(url);
 
