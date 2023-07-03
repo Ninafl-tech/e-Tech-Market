@@ -8,15 +8,21 @@ export function Navigation() {
 
   return (
     <NavContext.Provider value={{ activeCategory, setActiveCategory }}>
-      <StCategories className="flex  relative">
-        <div
+      <div className="flex  relative">
+        <StCategories
           className="w-72"
-          // onMouseLeave={() => setActiveCategory("")}
+          onMouseLeave={() => setActiveCategory("")}
         >
           <NavCategories />
-        </div>
-        <StContent className="bg-red relative">contenti</StContent>
-      </StCategories>
+        </StCategories>
+        <StContent className="bg-red ">
+          <img
+            className="opacity-100 hover:opacity-50 transition duration-500 ease-in-out"
+            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+            alt="content"
+          />
+        </StContent>
+      </div>
     </NavContext.Provider>
   );
 }

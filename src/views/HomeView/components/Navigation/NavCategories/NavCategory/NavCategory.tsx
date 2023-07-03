@@ -3,8 +3,10 @@ import { NavContext } from "../../context/NavContext";
 // import { NavContent } from "./NavContent/NavContent";
 import React, { useContext } from "react";
 import { StNavContent } from "./StNavContent.styled";
+import { useNavigate } from "react-router-dom";
 
 export function NavCategory({ category }: { category: string }) {
+  const navigate = useNavigate();
   const { productsData, getProducts, isLoading } = useFetchData();
   const { activeCategory, setActiveCategory } = useContext(NavContext);
 
@@ -26,7 +28,12 @@ export function NavCategory({ category }: { category: string }) {
         <StNavContent>
           {productsData.map((product, index) => (
             <div key={index}>
-              <div>{product.title}</div>
+              <div
+                className="p-4 border border-solid border-2"
+                onClick={() => navigate(`/searchResults/${product.title}`)}
+              >
+                {product.title}
+              </div>
             </div>
           ))}
         </StNavContent>
