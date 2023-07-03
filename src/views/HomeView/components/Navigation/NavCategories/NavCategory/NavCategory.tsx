@@ -29,7 +29,7 @@ export function NavCategory({ category }: { category: string }) {
           {productsData.map((product, index) => (
             <div key={index}>
               <div
-                className="p-4 border border-solid border-2"
+                className="p-4  border-solid border-2"
                 onClick={() => navigate(`/searchResults/${product.title}`)}
               >
                 {product.title}
