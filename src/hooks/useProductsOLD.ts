@@ -13,26 +13,30 @@ export function useProductsOLD() {
   const [totalItems, setTotalItems] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const getProducts = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
+  const getProducts = useCallback(
+    async (searchKeyword?: string, category?: string) => {
+      setIsLoading(true);
+      try {
+        const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
 
-      const response = await axios.post(`${baseURL}/products`, {
-        page_size: PAGINATION_LIMIT,
-        page_number: 0,
-      });
+        const response = await axios.post(`${baseURL}/products`, {
+          page_size: PAGINATION_LIMIT,
+          page_number: 0,
+          keyword: searchKeyword,
+        });
 
-      const { data } = response;
-      console.log("data", data);
-      setProductsData(data.products);
-      setTotalItems(data.total_found);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentPage]);
+        const { data } = response;
+        console.log("data", data);
+        setProductsData(data.products);
+        setTotalItems(data.total_found);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [currentPage]
+  );
 
   const onChange: PaginationProps["onChange"] = (page) => {
     setCurrentPage(page);

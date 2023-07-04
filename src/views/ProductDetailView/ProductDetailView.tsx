@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useFetchData } from "../../hooks/useFetchData";
+import axios from "axios";
+import { baseURL } from "../../config/baseURL.config";
+import { TProduct } from "../../types/Tproduct";
 
 export default function ProductDetailView() {
   const { id } = useParams();
-  const { getProducts, isLoading, singleProduct } = useFetchData();
+  const [singleProduct, setSingleProduct] = useState<TProduct>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function getProduct(id: string) {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`${baseURL}/product/${id}`);
+      setSingleProduct(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setError("Error occurred while fetching the product.");
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    id && getProducts(id);
+    id && getProduct(id);
   }, [id]);
 
   isLoading && <div>... loading </div>;
+  error && <div>... {error} </div>;
 
   return (
     <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">

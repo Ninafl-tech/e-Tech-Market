@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const StNavCategories = styled.div`
+export const StNavBrands = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;

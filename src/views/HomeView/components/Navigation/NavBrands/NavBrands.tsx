@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { StNavCategories } from "./StNavCategories.styled";
+import { StNavBrands } from "./StNavBrands.styled";
 import { useFetchData } from "../../../../../hooks/useFetchData";
-import { NavCategory } from "./NavCategory/NavCategory";
+import { NavBrand } from "./NavBrand/NavBrand";
 
-export function NavCategories() {
+export function NavBrands() {
   const { productsData, getProducts, isLoading } = useFetchData();
   const [error, setError] = useState("");
 
@@ -11,16 +11,17 @@ export function NavCategories() {
     getProducts();
   }, []);
 
-  const categoriesArray = productsData.map((product) => product.category);
-  const categories = categoriesArray.filter(
-    (category, index) => categoriesArray.indexOf(category) === index
+  const brandsArray = productsData.map((product) => product.brand);
+  const brands = brandsArray.filter(
+    (brand, index) => brandsArray.indexOf(brand) === index
   );
-
+  console.log(brandsArray);
+  console.log(brands);
   return (
     <>
-      <StNavCategories className="rounded-sm ">
+      <StNavBrands className="rounded-sm ">
         <div className="w-full bg-blue-300  p-5 rounded-sm">
-          <h2>კატეგორიები</h2>
+          <h2>ბრენდები</h2>
         </div>
         <div className="flex flex-col rounded-sm bg-secondaryBlue">
           <div>
@@ -30,14 +31,16 @@ export function NavCategories() {
             ) : (
               <>
                 {productsData.length > 0 &&
-                  categories.map((category, index) => (
-                    <NavCategory key={index} category={category} />
-                  ))}
+                  brands.map(
+                    (brand: string, index: React.Key | null | undefined) => (
+                      <NavBrand key={index} brand={brand} />
+                    )
+                  )}
               </>
             )}
           </div>
         </div>
-      </StNavCategories>
+      </StNavBrands>
     </>
   );
 }
