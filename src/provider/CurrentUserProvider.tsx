@@ -41,6 +41,25 @@ export function CurrentUserProvider({ children }: PropsWithChildren<{}>) {
     firstName: "",
     lastName: "",
   });
+  useEffect(() => {
+    const fetchData = async () => {
+      const accessToken = localStorage.getItem("AccessToken");
+      if (accessToken) {
+        try {
+          const resp = await axios.get(`${baseURL}/me`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setCurrentUser(resp.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
