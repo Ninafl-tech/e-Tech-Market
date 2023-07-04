@@ -1,5 +1,5 @@
 import React from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 export function Slider() {
@@ -11,17 +11,21 @@ export function Slider() {
         showStatus={false}
         showArrows={false}
         showThumbs={false}
-        interval={5000}
+        interval={3000}
       >
         <div>
-          <h1>Hello</h1>
-          <img src="https://images.unsplash.com/photo-1593642532009-6ba71e22f468?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1738&q=80" />
-          {/* <p className="legend">Legend 1</p> */}
+          <img
+            className="w-100% h-96"
+            src="https://d2xamzlzrdbdbn.cloudfront.net/BlogImages/322b9567-c69f-48d6-9f72-a733a8e9affa.jpg"
+          />
         </div>
-        <div></div>
+        <div>
+          <img
+            className="w-100% h-96"
+            src="https://e0.pxfuel.com/wallpapers/775/107/desktop-wallpaper-the-online-influence-how-to-market-an-e-commerce-business.jpg"
+          />
+        </div>
       </Carousel>
-
-      <p>Start editing to see some magic happen :</p>
     </div>
   );
 }

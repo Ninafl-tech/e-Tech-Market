@@ -81,7 +81,7 @@ export default function ProductDetailView() {
           <div className="w-full lg:w-1/2 px-4">
             <div className="max-w-md mb-6">
               <span className="text-xs text-gray-400 tracking-wider">
-                {singleProduct?.brand}
+                {/* {singleProduct?.brand} */}
               </span>
               <h2 className="mt-6 mb-4 text-xl md:text-2xl lg:text-3xl font-heading font-medium">
                 {singleProduct?.title}
@@ -172,7 +172,7 @@ export default function ProductDetailView() {
                 </button>
               </div>
               <span className="text-md text-gray-400">
-                {singleProduct?.rating}
+                {/* {singleProduct?.rating} */}
               </span>
             </div>
 

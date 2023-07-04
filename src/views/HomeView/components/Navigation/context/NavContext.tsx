@@ -1,4 +1,6 @@
-import { createContext } from "react";
+import { useState, PropsWithChildren, createContext } from "react";
+import { TProduct } from "../../../../../types/Tproduct";
+import { useFetchData } from "../../../../../hooks/useFetchData";
 
 type NavContextValue = {
   activeCategory: string;
