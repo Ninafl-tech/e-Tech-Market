@@ -14,7 +14,8 @@ export const Visible = styled.div`
   opacity: 1;
   transition: 0.5s ease;
   backface-visibility: hidden;
-  background-color: #f7fafc;
+  background-color: #ffffff;
+  border: 1px solid #dee2e7;
 `;
 
 export const Container = styled.div`

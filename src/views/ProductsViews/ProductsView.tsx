@@ -14,7 +14,7 @@ export default function ProductsView() {
   }, [getProducts]);
 
   return (
-    <StCard>
+    <div>
       {isLoading ? (
         <div>... loading</div>
       ) : (
@@ -35,6 +35,6 @@ export default function ProductsView() {
           </div>
         </div>
       )}
-    </StCard>
+    </div>
   );
 }

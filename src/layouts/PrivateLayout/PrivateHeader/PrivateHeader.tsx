@@ -24,7 +24,7 @@ export function PrivateHeader() {
   const { status, setStatus } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("AccessToken");
     setStatus(TAuthorizationStatus.UNAUTHORIZED);
   };
 

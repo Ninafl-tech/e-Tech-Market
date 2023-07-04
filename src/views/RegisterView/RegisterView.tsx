@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { baseURL } from "../../config/baseURL.config";
 
 type TRegisterForm = {
-  username: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   email: string;
   password: string;
 };
@@ -21,7 +23,7 @@ export default function RegisterView() {
 
   async function onSubmit(data: TRegisterForm) {
     try {
-      const resp = await axios.post(`${baseURL}/auth/signup`, data);
+      const resp = await axios.post(`${baseURL}/register`, data);
       if (resp.status === 201 || resp.status === 200) {
         setCreated(true);
       }
@@ -48,18 +50,18 @@ export default function RegisterView() {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Your username
+                  Firstname
                 </label>
                 <input
-                  {...register("username", { required: true })}
+                  {...register("firstName", { required: true })}
                   type="text"
-                  name="username"
-                  id="username"
+                  name="firstName"
+                  id="firstName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                  placeholder="username"
+                  placeholder="John"
                   required
                 />
-                {errors.username && (
+                {errors.firstName && (
                   <p className="mt-2 text-sm text-red-600 ">
                     <span className="font-medium">Oh, snapp!</span> Some error
                     message.
@@ -71,14 +73,60 @@ export default function RegisterView() {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Your email
+                  Lastname
+                </label>
+                <input
+                  {...register("lastName", { required: true })}
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  placeholder="Doe"
+                  required
+                />
+                {errors.lastName && (
+                  <p className="mt-2 text-sm text-red-600 ">
+                    <span className="font-medium">Oh, snapp!</span> Some error
+                    message.
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Phone number
+                </label>
+                <input
+                  {...register("phoneNumber", { required: true })}
+                  type="text"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  placeholder="+995........."
+                  required
+                />
+                {errors.phoneNumber && (
+                  <p className="mt-2 text-sm text-red-600 ">
+                    <span className="font-medium">Oh, snapp!</span> Some error
+                    message.
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Email
                 </label>
                 <input
                   {...register("email", { required: true })}
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="••••••••"
+                  placeholder="name@company.com"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   required
                 />
@@ -135,7 +183,6 @@ export default function RegisterView() {
                   Login here
                 </Link>
               </p>
-
               {created && (
                 <p className="mt-2 text-sm text-green-600 ">
                   <span className="mr-10">Account created successfully</span>
