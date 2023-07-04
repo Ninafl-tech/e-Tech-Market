@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { StNavBrands } from "./StNavBrands.styled";
-import { useFetchData } from "../../../../../hooks/useFetchData";
+import { useProductsOLD } from "../../../../../hooks/useProductsOLD";
 import { NavBrand } from "./NavBrand/NavBrand";
 
 export function NavBrands() {
-  const { productsData, getProducts, isLoading } = useFetchData();
+  const { productsData, getProducts, isLoading } = useProductsOLD();
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -15,8 +15,7 @@ export function NavBrands() {
   const brands = brandsArray.filter(
     (brand, index) => brandsArray.indexOf(brand) === index
   );
-  console.log(brandsArray);
-  console.log(brands);
+
   return (
     <>
       <StNavBrands className="rounded-sm ">

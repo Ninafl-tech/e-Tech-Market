@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchData } from "../../hooks/useFetchData";
 import { useProductsOLD } from "../../hooks/useProductsOLD";
 import { Product } from "../../components/Product/Product";
 import { TProduct } from "../../types/Tproduct";
