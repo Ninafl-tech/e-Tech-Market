@@ -1,8 +1,5 @@
-import React from "react";
-
-import { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { Tlocalstorage } from "../types/TlocalStorage";
 import { TAuthorizationStatus } from "../contexts/AuthContext";
 
 export function AuthProvider({ children }: PropsWithChildren) {
@@ -11,7 +8,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   );
 
   useEffect(() => {
-    const token = localStorage.getItem("access-token");
+    const token = localStorage.getItem("AccessToken");
     if (token) {
       setStatus(TAuthorizationStatus.AUTHORIZED);
       console.log(status);
