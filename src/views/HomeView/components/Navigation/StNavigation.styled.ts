@@ -4,6 +4,6 @@ export const StContent = styled.div`
   width: 75%;
 `;
 
-export const StCategories = styled.div`
+export const StBrands = styled.div`
   width: 25%;
 `;

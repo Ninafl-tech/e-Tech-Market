@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchData } from "../../hooks/useFetchData";
+import { useProductsOLD } from "../../hooks/useProductsOLD";
 import { Product } from "../../components/Product/Product";
 import { TProduct } from "../../types/Tproduct";
 import { Pagination } from "antd";
@@ -8,17 +8,11 @@ import { PAGINATION_LIMIT } from "../../config/pagination.config";
 
 export default function SearchResults() {
   const { searchKeyword } = useParams();
-  const {
-    productsData,
-    getProducts,
-    isLoading,
-    currentPage,
-    totalItems,
-    onChange,
-  } = useFetchData();
+  const { productsData, getProducts, onChange, isLoading, totalItems } =
+    useProductsOLD();
 
   useEffect(() => {
-    getProducts("", `${searchKeyword}`, "");
+    getProducts(`${searchKeyword}`, "");
   }, [getProducts, searchKeyword]);
 
   return (
@@ -35,7 +29,7 @@ export default function SearchResults() {
               </div>
             ))}
           </div>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             {
               <Pagination
                 current={currentPage}
@@ -45,7 +39,7 @@ export default function SearchResults() {
                 simple={true}
               />
             }
-          </div>
+          </div> */}
         </div>
       )}
     </>
