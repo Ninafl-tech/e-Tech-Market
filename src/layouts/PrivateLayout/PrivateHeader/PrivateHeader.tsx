@@ -3,6 +3,8 @@ import {
   AuthContext,
   TAuthorizationStatus,
 } from "../../../contexts/AuthContext";
+import { TUserTypes } from "../../../types/TUserTypes";
+import { CurrentUserContext } from "../../../provider/CurrentUserProvider";
 import { useContext } from "react";
 import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
 import { ShoppingCart } from "styled-icons/entypo";
@@ -22,10 +24,13 @@ import { To, useNavigate } from "react-router";
 
 export function PrivateHeader() {
   const { status, setStatus } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleLogout = () => {
     localStorage.removeItem("AccessToken");
     setStatus(TAuthorizationStatus.UNAUTHORIZED);
+    setCurrentUser(TUserTypes.GUEST);
+    navigate("/");
   };
 
   const navigate = useNavigate();

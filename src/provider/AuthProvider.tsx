@@ -11,7 +11,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const token = localStorage.getItem("AccessToken");
     if (token) {
       setStatus(TAuthorizationStatus.AUTHORIZED);
-      console.log(status);
     }
   }, []);
 

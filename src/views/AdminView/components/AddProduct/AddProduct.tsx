@@ -6,11 +6,11 @@ import { baseURL } from "../../../../config/baseURL.config";
 
 type TaddProductForm = {
   title: string;
+  brand: string;
   category: string;
   price: number;
   description: string;
   images: string[];
-  brand: string;
   amount: string;
 };
 
@@ -26,7 +26,7 @@ export function AddProduct() {
 
   async function onSubmit(data: TaddProductForm) {
     try {
-      const resp = await axios.post(`${baseURL}/product`, data, {
+      const resp = await axios.post(`${baseURL}/products`, data, {
         headers: {
           Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwIiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIjoxNjg4NjY3Mjc2fQ.zuPjSvBIAmFgs4pezWeJSaDF6YyirBqC5z8wTiA5mq3_W3xCE8CuuY1R7l8E7FrzOobAkWWe4JY-2t0W0f1XiA`,
         },
@@ -195,7 +195,7 @@ export function AddProduct() {
                     htmlFor="amount"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Product brand
+                    Product amount
                   </label>
                   <input
                     {...register("amount", { required: true })}
@@ -218,6 +218,33 @@ export function AddProduct() {
                   )}
                 </div>
                 <div>
+                  <label
+                    htmlFor="image"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Upload Images
+                  </label>
+                  <input
+                    {...register("images", { required: true })}
+                    type="text"
+                    name="images"
+                    id="images"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    placeholder="images"
+                    required
+                    // value={title}
+                    // onChange={(e) => setTile(e.target.value)}
+                    // type="text"
+                    // className="w-full"
+                  />
+                  {errors.images && (
+                    <p className="mt-2 text-sm text-red-600 ">
+                      <span className="font-medium">Oh, snapp!</span> Some error
+                      message.
+                    </p>
+                  )}
+                </div>
+                {/* <div>
                   <label
                     htmlFor="amount"
                     className="block mb-2 text-sm font-medium text-gray-900 "
@@ -267,14 +294,14 @@ export function AddProduct() {
                       </p>
                     )}
                   </div>
-                </div>
-
+                </div> */}
+                {/* 
                 {errors?.root && (
                   <p className="mt-2 text-sm text-red-600 ">
                     <span className="font-medium">ups!</span>{" "}
                     {errors.root.message}
                   </p>
-                )}
+                )} */}
 
                 <button
                   type="submit"
