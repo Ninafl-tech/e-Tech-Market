@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { StPublicLayoutContainerWrapper } from "../PublicLayout/StPublicLayoutContainerWrapper.styled";
 import { StMainContainer } from "../../components/StMainContainer/StMainContainer.styled";
 import { CartModalContext } from "../../contexts/CartModalContext";
-import { CartModal } from "../../views/CartView/newCartModal";
+import { CartModal } from "../../views/CartView/CartModal";
 
 export function PrivateLayout() {
   const { cartVisible } = useContext(CartModalContext);
