@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { StNavBrands } from "./StNavBrands.styled";
-import { useProductsOLD } from "../../../../../hooks/useProductsOLD";
+import { useGetProducts } from "../../../../../hooks/useGetProducts";
 import { NavBrand } from "./NavBrand/NavBrand";
 
 export function NavBrands() {
-  const { productsData, getProducts, isLoading } = useProductsOLD();
+  const { productsData, getProducts, isLoading } = useGetProducts();
   const [error, setError] = useState("");
 
   useEffect(() => {

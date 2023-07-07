@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
 import { TProductsList } from "../../types/Tproduct";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 export function Product({ product }: TProductsList) {
+  const { setCartItems } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const handleProductClick = () => {
@@ -32,7 +34,9 @@ export function Product({ product }: TProductsList) {
           <div className=" text-xs mb-2">{product.title}</div>
           <div className=" flex-col  justify-between">
             {" "}
-            <Button>
+            <Button
+              onClick={() => setCartItems((prev) => [product.id, ...prev])}
+            >
               <p>add to cart</p>
             </Button>
             <Button>

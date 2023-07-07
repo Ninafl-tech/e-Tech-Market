@@ -1,14 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  CurrentUserContext,
-  CurrentUserProvider,
-} from "../../provider/CurrentUserProvider";
-
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useForm } from "react-hook-form";
 import { Tlocalstorage } from "../../types/TlocalStorage";
-import { AuthContext, TAuthorizationStatus } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import { baseURL } from "../../config/baseURL.config";
 import jwt_decode from "jwt-decode";
@@ -20,10 +15,9 @@ type TLoginForm = {
 };
 
 export default function LoginView() {
-  const { pending, setPending, currentUser, setCurrentUser } =
+  const { pending, setPending, setCurrentUser } =
     useContext(CurrentUserContext);
   const navigate = useNavigate();
-  const { status, setStatus } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -39,8 +33,6 @@ export default function LoginView() {
           "AccessToken",
           resp.data.AccessToken
         );
-        setStatus(TAuthorizationStatus.AUTHORIZED);
-
         const { isAdmin }: { isAdmin: boolean } = jwt_decode(
           resp.data.AccessToken
         );

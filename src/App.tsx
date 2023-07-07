@@ -1,11 +1,13 @@
 import React from "react";
+import { useState } from "react";
 import { lazy, Suspense, useCallback, useContext } from "react";
-import { AuthContext, TAuthorizationStatus } from "./contexts/AuthContext";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { CurrentUserContext } from "./provider/CurrentUserProvider";
+import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { PublicLayout } from "./layouts/PublicLayout/PublicLayout";
 import { PrivateLayout } from "./layouts/PrivateLayout/PrivateLayout";
 import { TUserTypes } from "./types/TUserTypes";
+import { CartModalContext } from "./contexts/CartModalContext";
+import { CartModal } from "./views/CartView/CartModal";
 
 const HomeView = lazy(() => import("./views/HomeView/HomeView"));
 const ProductsView = lazy(() => import("./views/ProductsViews/ProductsView"));
@@ -15,7 +17,7 @@ const ProductDetailView = lazy(
 const LoginView = lazy(() => import("./views/LoginView/LoginView"));
 const RegisterView = lazy(() => import("./views/RegisterView/RegisterView"));
 const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
-const CartView = lazy(() => import("./views/CartView/CartView"));
+// const CartView = lazy(() => import("./views/CartView/CartView"));
 const PaymentView = lazy(() => import("./views/PaymentView/PaymentView"));
 const AdminView = lazy(() => import("./views/AdminView/AdminView"));
 const ProductTableView = lazy(
@@ -23,8 +25,8 @@ const ProductTableView = lazy(
 );
 
 function App() {
-  const { status } = useContext(AuthContext);
   const { currentUser } = useContext(CurrentUserContext);
+  const { cartVisible } = useContext(CartModalContext);
 
   const handleRoots = useCallback((currentUser: TUserTypes) => {
     switch (currentUser) {
@@ -39,7 +41,7 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              <Route path="/cart" element={<CartView />} />
+              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
             </Route>
@@ -56,7 +58,7 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              <Route path="/cart" element={<CartView />} />
+              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/pay" element={<PaymentView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
@@ -74,7 +76,7 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              <Route path="/cart" element={<CartView />} />
+              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/pay" element={<PaymentView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useProductsOLD } from "../../hooks/useProductsOLD";
+import { useGetProducts } from "../../hooks/useGetProducts";
 import { Product } from "../../components/Product/Product";
 import { TProduct } from "../../types/Tproduct";
 import { Pagination } from "antd";
@@ -9,7 +9,7 @@ import { PAGINATION_LIMIT } from "../../config/pagination.config";
 export default function SearchResults() {
   const { searchKeyword } = useParams();
   const { productsData, getProducts, onChange, isLoading, totalItems } =
-    useProductsOLD();
+    useGetProducts();
 
   useEffect(() => {
     getProducts(`${searchKeyword}`, "");
@@ -23,8 +23,8 @@ export default function SearchResults() {
       ) : (
         <div className="flex flex-col">
           <div className="flex flex-wrap">
-            {productsData.map((searchResult: TProduct) => (
-              <div key={searchResult.id}>
+            {productsData.map((searchResult: TProduct, index) => (
+              <div key={index}>
                 <Product product={searchResult} />
               </div>
             ))}

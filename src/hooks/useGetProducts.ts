@@ -6,7 +6,7 @@ import type { PaginationProps } from "antd";
 import { TProduct } from "../types/Tproduct";
 import { baseURL } from "../config/baseURL.config";
 
-export function useProductsOLD() {
+export function useGetProducts() {
   const [productsData, setProductsData] = useState<TProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -26,10 +26,10 @@ export function useProductsOLD() {
         });
 
         const { data } = response;
-        setProductsData(data.products);
+        setProductsData((prev) => [...prev, ...data.products]);
         setTotalItems(data.total_found);
       } catch (error: any) {
-        setError(error.message);
+        setError((prev) => (prev = error.message));
       } finally {
         setIsLoading(false);
       }

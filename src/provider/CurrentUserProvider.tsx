@@ -4,31 +4,9 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import axios from "axios";
-import { baseURL } from "../config/baseURL.config";
-import { Tlocalstorage } from "../types/TlocalStorage";
+import { TUserTypes } from "../types/TUserTypes";
 import jwt_decode from "jwt-decode";
-import { J, T } from "styled-icons/fa-solid";
-
-export enum TUserTypes {
-  ADMIN = "ADMIN",
-  GUEST = "GUEST",
-  USER = "USER",
-}
-
-type TCurrentUserContext = {
-  currentUser: TUserTypes;
-  setCurrentUser: React.Dispatch<React.SetStateAction<TUserTypes>>;
-  pending: boolean;
-  setPending: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const CurrentUserContext = createContext<TCurrentUserContext>({
-  currentUser: TUserTypes.GUEST,
-  setCurrentUser: () => {},
-  pending: true,
-  setPending: () => {},
-});
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export function CurrentUserProvider({ children }: PropsWithChildren) {
   const [currentUser, setCurrentUser] = useState<TUserTypes>(TUserTypes.GUEST);

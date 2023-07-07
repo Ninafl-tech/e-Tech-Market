@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  AuthContext,
-  TAuthorizationStatus,
-} from "../../../contexts/AuthContext";
 import { TUserTypes } from "../../../types/TUserTypes";
-import { CurrentUserContext } from "../../../provider/CurrentUserProvider";
+import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 import { useContext } from "react";
 import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
 import { ShoppingCart } from "styled-icons/entypo";
@@ -21,14 +17,14 @@ import {
   UserItem,
 } from "../../PublicLayout/Header/StHeader.styled";
 import { To, useNavigate } from "react-router";
+import { CartModalContext } from "../../../contexts/CartModalContext";
 
 export function PrivateHeader() {
-  const { status, setStatus } = useContext(AuthContext);
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
+  const { setCartVisible } = useContext(CartModalContext);
 
   const handleLogout = () => {
     localStorage.removeItem("AccessToken");
-    setStatus(TAuthorizationStatus.UNAUTHORIZED);
     setCurrentUser(TUserTypes.GUEST);
     navigate("/");
   };
@@ -77,7 +73,13 @@ export function PrivateHeader() {
                 <UserMinus size={24} />
                 <p>Log Out</p>
               </div>
-              <div className="text-solidGray">
+              <div
+                className="text-solidGray"
+                onClick={() => {
+                  // navigate("/cart");
+                  setCartVisible(true);
+                }}
+              >
                 <ShoppingCart size={24} />
                 <p>My Card</p>
               </div>
