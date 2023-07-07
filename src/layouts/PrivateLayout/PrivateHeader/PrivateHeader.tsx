@@ -65,16 +65,22 @@ export function PrivateHeader() {
             </SearchBar>
 
             <UserCorner>
-              <UserItem onClick={() => buttonClick("/login")}>
+              <UserItem
+                className="cursor-pointer"
+                onClick={() => buttonClick("/login")}
+              >
                 <User size={24} />
                 <p>Profile</p>
               </UserItem>
-              <div className="text-solidGray" onClick={() => handleLogout()}>
+              <div
+                className="text-solidGray cursor-pointer"
+                onClick={() => handleLogout()}
+              >
                 <UserMinus size={24} />
                 <p>Log Out</p>
               </div>
               <div
-                className="text-solidGray"
+                className="text-solidGray cursor-pointer"
                 onClick={() => {
                   // navigate("/cart");
                   setCartVisible(true);
@@ -83,7 +89,10 @@ export function PrivateHeader() {
                 <ShoppingCart size={24} />
                 <p>My Card</p>
               </div>
-              <div className="text-solidGray" onClick={() => buttonClick("/")}>
+              <div
+                className="text-solidGray cursor-pointer"
+                onClick={() => buttonClick("/")}
+              >
                 <Home size={24} />
                 <p>Home</p>
               </div>
@@ -92,7 +101,10 @@ export function PrivateHeader() {
         </HeaderWrapper>
       </StHeader>
       <StHeader>
-        <HeaderWrapper onClick={() => navigate("/products")}>
+        <HeaderWrapper
+          className="cursor-pointer"
+          onClick={() => navigate("/products")}
+        >
           All products
         </HeaderWrapper>
       </StHeader>
