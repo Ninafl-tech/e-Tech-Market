@@ -25,7 +25,7 @@ export default function SearchResults() {
           <div className="flex flex-wrap">
             {productsData.map((searchResult: TProduct, index) => (
               <div key={index}>
-                <Product product={searchResult} />
+                <Product {...searchResult} />
               </div>
             ))}
           </div>

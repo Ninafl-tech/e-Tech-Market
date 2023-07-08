@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
-import { TProductsList } from "../../types/Tproduct";
+// import { TProductsList } from "../../types/Tproduct";
 import { GlobalContext } from "../../contexts/GlobalContext";
+import { TProduct } from "../../types/Tproduct";
 
-export function Product({ product }: TProductsList) {
+export function Product(product: TProduct) {
   const { setCartItems } = useContext(GlobalContext);
   const navigate = useNavigate();
 

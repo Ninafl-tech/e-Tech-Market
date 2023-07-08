@@ -1,3 +1,3 @@
 export type TcartProduct = {
-  id: string;
+  cartId: string;
 };

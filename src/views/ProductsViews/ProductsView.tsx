@@ -24,7 +24,7 @@ export default function ProductsView() {
           <div className="flex flex-wrap">
             {productsData.map((product: TProduct, index) => (
               <div className="p-12" key={index}>
-                <Product product={product} />
+                <Product {...product} />
               </div>
             ))}
           </div>
