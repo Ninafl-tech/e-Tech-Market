@@ -28,9 +28,9 @@ export function Product(product: TProduct) {
             alt={product.title}
           />
         </div>
-        <div className="px-3.5 font-bold">{`${Math.floor(
-          product.price
-        )}$`}</div>
+        <div className="px-3.5 font-bold">
+          {Math.floor(Number(product.price))}$
+        </div>
         <div className="px-3.5 py-3 flex justify-between items-center">
           <div className=" text-xs mb-2">{product.title}</div>
           <div className=" flex-col  justify-between">

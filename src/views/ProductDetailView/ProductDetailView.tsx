@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { baseURL } from "../../config/baseURL.config";
 import { TProduct } from "../../types/Tproduct";
 import { Carousel } from "antd";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 export default function ProductDetailView() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState<TProduct>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { setCartItems } = useContext(GlobalContext);
 
   async function getProduct(id: string) {
     try {
@@ -107,10 +109,7 @@ export default function ProductDetailView() {
               </h2>
               <p className="flex items-center mb-6">
                 <span className="text-xl text-blue-500 font-medium">
-                  {singleProduct?.price}
-                </span>
-                <span className="mr-2 text-sm text-blue-500 font-medium">
-                  $
+                  {Math.floor(Number(singleProduct?.price))}$
                 </span>
               </p>
             </div>
@@ -195,12 +194,14 @@ export default function ProductDetailView() {
 
             <div className="flex flex-wrap -mx-2 mb-6">
               <div className="w-full md:w-2/3 px-2 mb-2 md:mb-0">
-                <a
-                  className="block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-white text-center bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hover:bg-blue-600 rounded-xl"
-                  href="#"
+                <button
+                  className="w-full block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-white text-center bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hover:bg-blue-600 rounded-xl"
+                  onClick={() =>
+                    setCartItems((prev) => [singleProduct?.id, ...prev])
+                  }
                 >
                   Add to bag
-                </a>
+                </button>
               </div>
             </div>
           </div>

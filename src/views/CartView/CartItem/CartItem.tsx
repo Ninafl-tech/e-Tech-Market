@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useGetSingleCartProduct } from "../../../hooks/useGetSingleCartProduct";
 import { TcartProduct } from "../../../types/TcartProduct";
+import { GlobalContext } from "../../../contexts/GlobalContext";
 
 export function CartItem(cartId: TcartProduct) {
   const { error, singleCartProduct, isLoading } =
     useGetSingleCartProduct(cartId);
+  const { cartItems, setCartItems } = useContext(GlobalContext);
+
+  const handleRemoveFromCart = () => {
+    const newCartItems = cartItems.filter((item) => item !== cartId.cartId);
+    setCartItems(newCartItems);
+  };
+
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
+
+  if (error) {
+    return <div>error</div>;
+  }
 
   return (
     <div>
@@ -34,6 +49,7 @@ export function CartItem(cartId: TcartProduct) {
               <button
                 type="button"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
+                onClick={handleRemoveFromCart}
               >
                 Remove
               </button>
