@@ -24,17 +24,25 @@ export function AddProduct() {
     formState: { errors },
   } = useForm<TaddProductForm>();
 
-  async function onSubmit(data: TaddProductForm) {
+  const storedAccessToken = localStorage.getItem("AccessToken");
+
+  async function onSubmit(NewProductData: TaddProductForm) {
     try {
-      const resp = await axios.post(`${baseURL}/products`, data, {
+      const resp = await axios.post(`${baseURL}/products`, NewProductData, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwIiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIjoxNjg4NjY3Mjc2fQ.zuPjSvBIAmFgs4pezWeJSaDF6YyirBqC5z8wTiA5mq3_W3xCE8CuuY1R7l8E7FrzOobAkWWe4JY-2t0W0f1XiA`,
+          Authorization: `Bearer ${storedAccessToken}`,
+          "Content-Type": "application/json",
         },
       });
 
+      console.log(resp);
+      console.log(NewProductData);
+      console.log(resp.data);
+
+      console.log(storedAccessToken);
+
       if (resp.data) {
         setAdded(true);
-        console.log(resp.data);
       }
     } catch (error: any) {
       setError("root", { message: "something went wrong" });

@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -6,21 +6,73 @@ import { CartModalContext } from "../../contexts/CartModalContext";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { CartItem } from "./CartItem/CartItem";
 
-type TProduct = {
-  price: number;
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  rating: string;
-  amount: string;
-  brand: string;
-  images: string[];
-};
-
 export function CartModal() {
   const { cartVisible, setCartVisible } = useContext(CartModalContext);
-  const { cartItems } = useContext(GlobalContext);
+  const { cartItems, setCartItems } = useContext(GlobalContext);
+  const [bought, setBought] = useState<boolean>(false);
+
+  const AfterPayment = useMemo(
+    () => (
+      <div className="mt-8 font-medium text-indigo-600 bg-primaryGray rounded p-3">
+        {" "}
+        Payment was successfull !
+      </div>
+    ),
+    []
+  );
+
+  const BeforePayment = useMemo(
+    () => (
+      <>
+        <div className="mt-8">
+          <div className="flow-root">
+            <ul role="list" className="-my-6 divide-y divide-gray-200">
+              {cartItems.map((item) => {
+                return <CartItem cartId={item} key={item} />;
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <div className="flex justify-between text-base font-medium text-gray-900">
+            <p>Subtotal</p>
+            <p>{}</p>
+          </div>
+          <p className="mt-0.5 text-sm text-gray-500">
+            Shipping and taxes calculated at checkout.
+          </p>
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                if (cartItems.length !== 0) {
+                  setBought(true);
+                  setCartItems([]);
+                }
+              }}
+              type="button"
+              className=" w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+            >
+              Checkout
+            </button>
+          </div>
+          <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+            <p>
+              or
+              <button
+                type="button"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+                onClick={() => setCartVisible(false)}
+              >
+                Continue Shopping
+                <span aria-hidden="true"> &rarr;</span>
+              </button>
+            </p>
+          </div>
+        </div>
+      </>
+    ),
+    [cartItems]
+  );
 
   if (cartVisible) {
     return (
@@ -71,50 +123,7 @@ export function CartModal() {
                             </button>
                           </div>
                         </div>
-
-                        <div className="mt-8">
-                          <div className="flow-root">
-                            <ul
-                              role="list"
-                              className="-my-6 divide-y divide-gray-200"
-                            >
-                              {cartItems.map((item) => {
-                                return <CartItem cartId={item} key={item} />;
-                              })}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <p>Subtotal</p>
-                          <p>$262.00</p>
-                        </div>
-                        <p className="mt-0.5 text-sm text-gray-500">
-                          Shipping and taxes calculated at checkout.
-                        </p>
-                        <div className="mt-6">
-                          <a
-                            href="#"
-                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                          >
-                            Checkout
-                          </a>
-                        </div>
-                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                          <p>
-                            or
-                            <button
-                              type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
-                              onClick={() => setCartVisible(false)}
-                            >
-                              Continue Shopping
-                              <span aria-hidden="true"> &rarr;</span>
-                            </button>
-                          </p>
-                        </div>
+                        {bought ? AfterPayment : BeforePayment}
                       </div>
                     </div>
                   </Dialog.Panel>
@@ -128,22 +137,3 @@ export function CartModal() {
   }
   return null;
 }
-
-// if (cartVisible) {
-//   return (
-//     <div className="absolute flex items-center justify-center w-96 h-96 border border-black border-solid  bg-gray-500">
-//       <div className="flex w-full justify-between items-center">
-//         <h1 className="text-black text-[40px] ">CART</h1>
-//         <CloseCircle
-//           onClick={() => setCartVisible(false)}
-//           className="text-white cursor-pointer w-[50px] h-[50px]"
-//         />
-//       </div>
-//       <div>
-//         {cartItems.map((item) => {
-//           return <CartItem id={item} key={item} />;
-//         })}
-//       </div>
-//     </div>
-//   );
-// }

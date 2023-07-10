@@ -20,7 +20,7 @@ export function NavBrands() {
     <>
       <StNavBrands className="rounded-sm ">
         <div className="w-full bg-blue-300  p-5 rounded-sm">
-          <h2>ბრენდები</h2>
+          <h2 className="text-">ბრენდები</h2>
         </div>
         <div className="flex flex-col rounded-sm bg-secondaryBlue">
           <div>
