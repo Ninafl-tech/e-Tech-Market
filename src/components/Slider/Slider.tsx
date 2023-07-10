@@ -37,6 +37,12 @@ export function Slider() {
             src="https://eminence.ch/wp-content/uploads/2022/02/commerce-tips-2022.jpg"
           />
         </div>
+        <div>
+          <img
+            className="w-100% h-96"
+            src="https://au.buynship.com/contents/uploads/2020/02/BH.jpeg"
+          />
+        </div>
       </Carousel>
     </div>
   );

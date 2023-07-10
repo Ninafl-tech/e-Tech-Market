@@ -5,7 +5,7 @@ import { StCard } from "../../components/StCard/StCard.syled";
 
 export default function HomeView() {
   return (
-    <StCard>
+    <StCard className="shadow-lg">
       <Navigation />
       {/* <Slider /> */}
     </StCard>

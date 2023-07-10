@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 import { useContext } from "react";
 import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
 import { ShoppingCart } from "styled-icons/entypo";
+import { MenuOutline } from "@styled-icons/evaicons-outline/MenuOutline";
 import { StMainContainer } from "../../../components/StMainContainer/StMainContainer.styled";
 import { ProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/ProductSearchbar";
 import { StProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/StProductSearchbar.styled";
@@ -66,21 +67,21 @@ export function PrivateHeader() {
 
             <UserCorner>
               <UserItem
-                className="cursor-pointer"
+                className="text-solidGray px-2 py-1 cursor-pointer rounded  hover:bg-gray-100"
                 onClick={() => buttonClick("/login")}
               >
                 <User size={24} />
                 <p>Profile</p>
               </UserItem>
               <div
-                className="text-solidGray cursor-pointer"
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => handleLogout()}
               >
                 <UserMinus size={24} />
                 <p>Log Out</p>
               </div>
               <div
-                className="text-solidGray cursor-pointer"
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => {
                   // navigate("/cart");
                   setCartVisible(true);
@@ -90,7 +91,7 @@ export function PrivateHeader() {
                 <p>My Card</p>
               </div>
               <div
-                className="text-solidGray cursor-pointer"
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => buttonClick("/")}
               >
                 <Home size={24} />
@@ -101,11 +102,16 @@ export function PrivateHeader() {
         </HeaderWrapper>
       </StHeader>
       <StHeader>
-        <HeaderWrapper
-          className="cursor-pointer"
-          onClick={() => navigate("/products")}
-        >
-          All products
+        <HeaderWrapper>
+          <div
+            className="cursor-pointer  text-solidGray flex items-center p-1.5"
+            onClick={() => navigate("/products")}
+          >
+            <div className="rounded p-1.5 hover:bg-gray-100  hover:text-black">
+              <MenuOutline size={24} />
+              <button>All Products</button>
+            </div>
+          </div>
         </HeaderWrapper>
       </StHeader>
     </>

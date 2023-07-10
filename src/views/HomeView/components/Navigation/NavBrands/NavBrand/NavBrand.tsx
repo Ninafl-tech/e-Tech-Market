@@ -9,7 +9,7 @@ export function NavBrand({ brand }: { brand: string }) {
   };
 
   return (
-    <div className="flex w-full p-5 cursor-pointer text-center border-b-2">
+    <div className="flex w-full rounded-sm p-5 cursor-pointer text-center ">
       <div onClick={handleClick}>{brand}</div>
     </div>
   );

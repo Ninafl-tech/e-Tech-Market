@@ -16,13 +16,23 @@ export function NavBrands() {
     (brand, index) => brandsArray.indexOf(brand) === index
   );
 
+  const [hoveredBrand, setHoveredBrand] = useState<string | null>(null);
+
+  const handleHover = (brand: string) => {
+    setHoveredBrand(brand);
+  };
+
+  const handleUnhover = () => {
+    setHoveredBrand(null);
+  };
+
   return (
     <>
       <StNavBrands className="rounded-sm ">
-        <div className="w-full bg-blue-300  p-5 rounded-sm">
-          <h2 className="text-">ბრენდები</h2>
+        <div className="w-full bg-white  p-4 rounded-sm">
+          <h2 className="text-">All Brands</h2>
         </div>
-        <div className="flex flex-col rounded-sm bg-secondaryBlue">
+        <div className="flex flex-col text-solidGray  bg-white ">
           <div>
             {error && <div>Error</div>}
             {isLoading ? (
@@ -32,7 +42,18 @@ export function NavBrands() {
                 {productsData.length > 0 &&
                   brands.map(
                     (brand: string, index: React.Key | null | undefined) => (
-                      <NavBrand key={index} brand={brand} />
+                      <div
+                        key={index}
+                        onMouseLeave={handleUnhover}
+                        onMouseEnter={() => {
+                          handleHover(brand);
+                        }}
+                        {...(hoveredBrand === brand && {
+                          className: "bg-secondaryBlue text-black rounded",
+                        })}
+                      >
+                        <NavBrand brand={brand} />
+                      </div>
                     )
                   )}
               </>
