@@ -5,6 +5,7 @@ import { Button } from "antd";
 // import { TProductsList } from "../../types/Tproduct";
 import { GlobalContext } from "../../contexts/GlobalContext";
 import { TProduct } from "../../types/Tproduct";
+import { FormattedMessage } from "react-intl";
 
 export function Product(product: TProduct) {
   const { setCartItems } = useContext(GlobalContext);
@@ -38,16 +39,22 @@ export function Product(product: TProduct) {
             <Button
               onClick={() => setCartItems((prev) => [product.id, ...prev])}
             >
-              <p>add to cart</p>
+              <p>
+                <FormattedMessage id="Product.add.to.card" />
+              </p>
             </Button>
             <Button>
-              <p>buy now</p>
+              <p>
+                <FormattedMessage id="product.buy.now" />
+              </p>
             </Button>
           </div>
         </div>
       </Visible>
       <Hidden onClick={handleProductClick}>
-        <Text>DETAILS</Text>
+        <Text>
+          <FormattedMessage id="product.details" />
+        </Text>
       </Hidden>
     </Container>
   );

@@ -1,6 +1,7 @@
 import { Button, Space, Input } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 export function ProductSearchbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -30,7 +31,7 @@ export function ProductSearchbar() {
               htmlType="submit"
               onClick={handleclick}
             >
-              Submit
+              <FormattedMessage id="ProductSearchbar.search" />
             </Button>
           </Space.Compact>
         </form>

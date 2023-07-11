@@ -1,5 +1,19 @@
 {
-  "hello": "hallo",
+  "language.german": "German",
+  "language.english": "English",
   "welcome.text": "wilkommen auf unsere website",
-  "input.placeholder.text.firstname": "voranme"
+  "input.placeholder.text.firstname": "voranme",
+  "all.products": "Alle Produkte",
+
+  "all.brands": "Alle Marken",
+  "profile": "Profil",
+  "logout": "Ausloggen",
+  "my.card": "Karte",
+  "home": "Startseite",
+
+  "ProductSearchbar.search": "Suchen",
+
+  "Product.add.to.card": "zur Karte hinzufügen",
+  "product.buy.now": "Jetzt einkaufen",
+  "product.details": "Einzelheiten"
 }

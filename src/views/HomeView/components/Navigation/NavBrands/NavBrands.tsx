@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StNavBrands } from "./StNavBrands.styled";
 import { useGetProducts } from "../../../../../hooks/useGetProducts";
 import { NavBrand } from "./NavBrand/NavBrand";
+import { FormattedMessage } from "react-intl";
 
 export function NavBrands() {
   const { productsData, getProducts, isLoading } = useGetProducts();
@@ -30,7 +31,9 @@ export function NavBrands() {
     <>
       <StNavBrands className="rounded-sm ">
         <div className="w-full bg-white  p-4 rounded-sm">
-          <h2 className="text-gray-700">All Brands</h2>
+          <h2 className="text-gray-700">
+            <FormattedMessage id="all.brands" />
+          </h2>
         </div>
         <div className="flex flex-col  text-solidGray  bg-white ">
           <div>

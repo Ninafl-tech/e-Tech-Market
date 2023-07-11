@@ -1,5 +1,18 @@
 {
   "hello": "hello",
   "welcome.text": "welcome to our website",
-  "input.placeholder.text.firstname": "firstname"
+  "input.placeholder.text.firstname": "firstname",
+  "all.products": "All Products",
+
+  "all.brands": "All Brands",
+  "profile": "Profile",
+  "logout": "Logout",
+  "my.card": "Card",
+  "home": "Home",
+
+  "ProductSearchbar.search": "Search",
+
+  "Product.add.to.card": "Add to Card",
+  "product.buy.now": "Buy Now",
+  "product.details": "Details"
 }
