@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { CurrentUserProvider } from "./provider/CurrentUserProvider";
 import { CartModalProvider } from "./provider/CartModalProvider";
 import { GlobalProvider } from "./provider/GlobalProvider";
+// import { LocaleProvider } from "./provider/LocaleProvider/LocaleProvider";
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -17,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <QueryClientProvider client={queryClient}>
           <CurrentUserProvider>
             <CartModalProvider>
+              {/* <LocaleProvider> */}
               <App />
+              {/* </LocaleProvider> */}
             </CartModalProvider>
           </CurrentUserProvider>
         </QueryClientProvider>

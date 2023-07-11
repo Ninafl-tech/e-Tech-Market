@@ -5,7 +5,7 @@ import { Slider } from "../../../../components/Slider/Slider";
 
 export function Navigation() {
   return (
-    <div className="flex  relative p-5">
+    <div className="flex  relative">
       <StBrands>
         <NavBrands />
       </StBrands>
