@@ -39,11 +39,13 @@ export function useGetProducts() {
 
   const onChange: PaginationProps["onChange"] = (page) => {
     setCurrentPage(page);
+    console.log(page);
   };
 
   return {
     productsData,
     getProducts,
+    currentPage,
     onChange,
     isLoading,
     totalItems,

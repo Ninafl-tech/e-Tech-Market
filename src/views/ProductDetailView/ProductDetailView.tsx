@@ -5,6 +5,7 @@ import { baseURL } from "../../config/baseURL.config";
 import { TProduct } from "../../types/Tproduct";
 import { Carousel } from "antd";
 import { GlobalContext } from "../../contexts/GlobalContext";
+import { FormattedMessage } from "react-intl";
 
 export default function ProductDetailView() {
   const { id } = useParams();
@@ -43,7 +44,9 @@ export default function ProductDetailView() {
                   className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
                   href="#"
                 >
-                  <span>Home</span>
+                  <span>
+                    <FormattedMessage id="home" />
+                  </span>
                   <svg
                     className="ml-6"
                     width="4"
@@ -187,7 +190,9 @@ export default function ProductDetailView() {
                 </button>
               </div>
               <span className="text-md text-gray-400">
-                <p>rating:</p>
+                <p>
+                  <FormattedMessage id="productDetails.rating" /> :
+                </p>
                 {singleProduct?.rating}
               </span>
             </div>
@@ -200,7 +205,7 @@ export default function ProductDetailView() {
                     setCartItems((prev) => [singleProduct?.id, ...prev])
                   }
                 >
-                  Add to bag
+                  <FormattedMessage id="Product.add.to.card" />
                 </button>
               </div>
             </div>
@@ -208,7 +213,9 @@ export default function ProductDetailView() {
         </div>
         <div>
           {" "}
-          <span className="text-gray-500">Description:</span>{" "}
+          <span className="text-gray-500">
+            <FormattedMessage id="productDetails.description" />:
+          </span>{" "}
           <p className="text-sm text-gray-400"> {singleProduct?.description}</p>
         </div>
       </div>

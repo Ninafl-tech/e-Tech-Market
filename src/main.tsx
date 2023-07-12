@@ -16,15 +16,15 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <GlobalProvider>
-        <QueryClientProvider client={queryClient}>
-          <CurrentUserProvider>
-            <CartModalProvider>
-              <LocaleProvider>
+        <LocaleProvider>
+          <QueryClientProvider client={queryClient}>
+            <CurrentUserProvider>
+              <CartModalProvider>
                 <App />
-              </LocaleProvider>
-            </CartModalProvider>
-          </CurrentUserProvider>
-        </QueryClientProvider>
+              </CartModalProvider>
+            </CurrentUserProvider>
+          </QueryClientProvider>
+        </LocaleProvider>
       </GlobalProvider>
     </BrowserRouter>
   </React.StrictMode>

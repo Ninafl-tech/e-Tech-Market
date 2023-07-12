@@ -14,5 +14,8 @@
 
   "Product.add.to.card": "Add to Card",
   "product.buy.now": "Buy Now",
-  "product.details": "Details"
+  "product.details": "Details",
+
+  "productDetails.rating": "Rating",
+  "productDetails.description": "Description"
 }
