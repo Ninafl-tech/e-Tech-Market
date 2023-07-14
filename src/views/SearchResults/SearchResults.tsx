@@ -12,7 +12,7 @@ export default function SearchResults() {
     useGetProducts();
 
   useEffect(() => {
-    getProducts(`${searchKeyword}`, "");
+    getProducts(`${searchKeyword}`);
   }, [getProducts, searchKeyword]);
 
   return (
