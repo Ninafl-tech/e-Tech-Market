@@ -18,5 +18,7 @@
   "product.details": "Einzelheiten",
 
   "productDetails.rating": "Bewertung",
-  "productDetails.description": "Beschreibung"
+  "productDetails.description": "Beschreibung",
+
+  "admin": "Admin"
 }

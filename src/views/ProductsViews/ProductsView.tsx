@@ -15,6 +15,7 @@ export default function ProductsView() {
     isLoading,
     totalItems,
     onChange,
+    setCurrentPage,
     currentPage,
   } = useGetProducts();
 
