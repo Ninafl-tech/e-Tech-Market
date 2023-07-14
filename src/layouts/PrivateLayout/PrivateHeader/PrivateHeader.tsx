@@ -20,9 +20,14 @@ import {
 import { To, useNavigate } from "react-router";
 import { CartModalContext } from "../../../contexts/CartModalContext";
 
+import { LocaleContext } from "../../../contexts/LocaleContext";
+import { FormattedMessage } from "react-intl";
+
 export function PrivateHeader() {
   const { setCurrentUser } = useContext(CurrentUserContext);
   const { setCartVisible } = useContext(CartModalContext);
+
+  const { locale, setLocale } = useContext(LocaleContext);
 
   const handleLogout = () => {
     localStorage.removeItem("AccessToken");
@@ -71,14 +76,18 @@ export function PrivateHeader() {
                 onClick={() => buttonClick("/login")}
               >
                 <User size={24} />
-                <p>Profile</p>
+                <p>
+                  <FormattedMessage id="profile" />
+                </p>
               </UserItem>
               <div
                 className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => handleLogout()}
               >
                 <UserMinus size={24} />
-                <p>Log Out</p>
+                <p>
+                  <FormattedMessage id="logout" />
+                </p>
               </div>
               <div
                 className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
@@ -88,14 +97,18 @@ export function PrivateHeader() {
                 }}
               >
                 <ShoppingCart size={24} />
-                <p>My Card</p>
+                <p>
+                  <FormattedMessage id="my.card" />
+                </p>
               </div>
               <div
                 className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => buttonClick("/")}
               >
                 <Home size={24} />
-                <p>Home</p>
+                <p>
+                  <FormattedMessage id="home" />
+                </p>
               </div>
             </UserCorner>
           </HeaderContainer>{" "}
@@ -103,13 +116,46 @@ export function PrivateHeader() {
       </StHeader>
       <StHeader>
         <HeaderWrapper>
-          <div
-            className="cursor-pointer  text-solidGray flex items-center p-1.5"
-            onClick={() => navigate("/products")}
-          >
-            <div className="rounded p-1.5 hover:bg-gray-100  hover:text-black">
+          <div className=" flex justify-between items-center p-1.5">
+            <div
+              className="cursor-pointer  text-solidGray rounded p-1.5 hover:bg-gray-100  hover:text-black"
+              onClick={() => navigate("/products")}
+            >
               <MenuOutline size={24} />
-              <button>All Products</button>
+              <button>
+                <FormattedMessage id="all.products" />
+              </button>
+            </div>
+            <div className="text-solidGray rounded p-1.5 flex">
+              <select
+                name=""
+                id=""
+                value={locale}
+                onChange={(e) => setLocale(e.target.value as "en" | "de")}
+              >
+                <option value={"en"}>
+                  English
+                  {/* <div className="flex items-center">
+                    <img
+                      className="w-7 h-full"
+                      src="https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png"
+                    />
+                  </div> */}
+                </option>
+
+                <option value={"de"}>
+                  German
+                  {/* <div className="flex items-center">
+                    <img
+                      className="w-7 h-full"
+                      src="https://img.freepik.com/premium-vector/vector-image-british-flag-england-sign-kingdom-great-britain-lovely-london-badge_213497-1010.jpg?w=2000"
+                      alt=""
+                    />
+                  </div> */}
+                </option>
+                {}
+              </select>
+              {}
             </div>
           </div>
         </HeaderWrapper>
