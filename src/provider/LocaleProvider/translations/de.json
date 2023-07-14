@@ -15,5 +15,8 @@
 
   "Product.add.to.card": "zur Karte hinzufügen",
   "product.buy.now": "Jetzt einkaufen",
-  "product.details": "Einzelheiten"
+  "product.details": "Einzelheiten",
+
+  "productDetails.rating": "Bewertung",
+  "productDetails.description": "Beschreibung"
 }

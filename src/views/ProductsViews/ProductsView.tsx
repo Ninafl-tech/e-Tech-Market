@@ -9,12 +9,18 @@ import { CartModalContext } from "../../contexts/CartModalContext";
 import { Cart } from "@styled-icons/boxicons-solid";
 
 export default function ProductsView() {
-  const { productsData, getProducts, isLoading, totalItems, onChange } =
-    useGetProducts();
+  const {
+    productsData,
+    getProducts,
+    isLoading,
+    totalItems,
+    onChange,
+    currentPage,
+  } = useGetProducts();
 
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  }, [getProducts, currentPage]);
 
   return (
     <div>
@@ -35,6 +41,7 @@ export default function ProductsView() {
               pageSize={PAGINATION_LIMIT}
               simple={true}
               onChange={onChange}
+              current={currentPage}
             />
           </div>
         </div>

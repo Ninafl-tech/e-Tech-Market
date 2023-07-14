@@ -44,6 +44,7 @@ export function useGetProducts() {
   return {
     productsData,
     getProducts,
+    currentPage,
     onChange,
     isLoading,
     totalItems,
