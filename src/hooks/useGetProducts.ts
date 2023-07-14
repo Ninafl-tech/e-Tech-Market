@@ -13,20 +13,24 @@ export function useGetProducts() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [error, setError] = useState<string>("");
 
+  const onChange: PaginationProps["onChange"] = (page) => {
+    setCurrentPage(page);
+  };
+
   const getProducts = useCallback(
-    async (searchKeyword?: string, category?: string) => {
+    async (searchKeyword?: string) => {
       setIsLoading(true);
       try {
         const skipPages = (currentPage - 1) * PAGINATION_LIMIT;
 
         const response = await axios.post(`${baseURL}/products`, {
           page_size: PAGINATION_LIMIT,
-          page_number: 0,
+          page_number: skipPages,
           keyword: searchKeyword,
         });
 
         const { data } = response;
-        setProductsData((prev) => [...prev, ...data.products]);
+        setProductsData(data.products);
         setTotalItems(data.total_found);
       } catch (error: any) {
         setError((prev) => (prev = error.message));
@@ -36,10 +40,6 @@ export function useGetProducts() {
     },
     [currentPage]
   );
-
-  const onChange: PaginationProps["onChange"] = (page) => {
-    setCurrentPage(page);
-  };
 
   return {
     productsData,
