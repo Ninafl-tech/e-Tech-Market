@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../../config/baseURL.config";
+import { New } from "styled-icons/entypo";
 
 type TaddProductForm = {
   title: string;
@@ -16,6 +17,7 @@ type TaddProductForm = {
 
 export function AddProduct() {
   const [added, setAdded] = useState<boolean>(false);
+  const [newProductsList, setNewProductsList] = useState<TaddProductForm[]>([]);
 
   const {
     register,
@@ -39,13 +41,16 @@ export function AddProduct() {
       console.log(NewProductData);
       console.log(resp.data);
 
-      console.log(storedAccessToken);
-
-      if (resp.data) {
+      if (resp.data && resp.data.products) {
         setAdded(true);
+        setNewProductsList((prevProducts) => [
+          ...prevProducts,
+          resp.data.products,
+        ]);
+        console.log(newProductsList);
       }
     } catch (error: any) {
-      setError("root", { message: "something went wrong" });
+      setError("title", { message: "Something went wrong" });
     }
   }
 

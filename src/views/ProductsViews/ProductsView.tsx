@@ -16,6 +16,7 @@ export default function ProductsView() {
     totalItems,
     onChange,
     currentPage,
+    setCurrentPage,
   } = useGetProducts();
 
   useEffect(() => {

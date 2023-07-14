@@ -17,5 +17,7 @@
   "product.details": "Details",
 
   "productDetails.rating": "Rating",
-  "productDetails.description": "Description"
+  "productDetails.description": "Description",
+
+  "admin": "Admin"
 }

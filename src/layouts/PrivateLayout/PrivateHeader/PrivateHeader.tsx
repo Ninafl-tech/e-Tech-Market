@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TUserTypes } from "../../../types/TUserTypes";
 import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 import { useContext } from "react";
@@ -17,13 +17,14 @@ import {
   UserCorner,
   UserItem,
 } from "../../PublicLayout/Header/StHeader.styled";
+import { AdminPanelSettings } from "@styled-icons/material-rounded/AdminPanelSettings";
 import { To, useNavigate } from "react-router";
 import { CartModalContext } from "../../../contexts/CartModalContext";
 import { LocaleContext } from "../../../contexts/LocaleContext";
 import { FormattedMessage } from "react-intl";
 
 export function PrivateHeader() {
-  const { setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { setCartVisible } = useContext(CartModalContext);
   const { locale, setLocale } = useContext(LocaleContext);
 
@@ -38,6 +39,10 @@ export function PrivateHeader() {
   function buttonClick(path: To) {
     navigate(path);
   }
+
+  useEffect(() => {
+    localStorage.setItem("selectedLanguage", locale);
+  }, [locale]);
 
   return (
     <>
@@ -115,14 +120,27 @@ export function PrivateHeader() {
       <StHeader>
         <HeaderWrapper>
           <div className=" flex justify-between items-center p-1.5">
-            <div
-              className="cursor-pointer  text-solidGray rounded p-1.5 hover:bg-gray-100  hover:text-black"
-              onClick={() => navigate("/products")}
-            >
-              <MenuOutline size={24} />
-              <button>
-                <FormattedMessage id="all.products" />
-              </button>
+            <div className="flex">
+              <div
+                className=" flex justify-center items-center cursor-pointer  text-solidGray rounded p-1.5 hover:bg-gray-100  hover:text-black"
+                onClick={() => navigate("/products")}
+              >
+                <MenuOutline size={24} />
+                <button>
+                  <FormattedMessage id="all.products" />
+                </button>
+              </div>
+              {currentUser === TUserTypes.ADMIN && (
+                <div
+                  className="flex text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                  onClick={() => buttonClick("/admin")}
+                >
+                  <AdminPanelSettings size={24} />
+                  <p>
+                    <FormattedMessage id="admin" />
+                  </p>
+                </div>
+              )}
             </div>
             <div className="text-solidGray rounded p-1.5 flex">
               <select
