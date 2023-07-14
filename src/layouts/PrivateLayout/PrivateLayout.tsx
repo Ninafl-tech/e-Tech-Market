@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom";
 import { PrivateHeader } from "./PrivateHeader/PrivateHeader";
-import React from "react";
+import React, { useContext } from "react";
 import { StPublicLayoutContainerWrapper } from "../PublicLayout/StPublicLayoutContainerWrapper.styled";
 import { StMainContainer } from "../../components/StMainContainer/StMainContainer.styled";
+import { CartModalContext } from "../../contexts/CartModalContext";
+import { CartModal } from "../../views/CartView/CartModal";
 
 export function PrivateLayout() {
+  const { cartVisible } = useContext(CartModalContext);
   return (
     <div>
       <PrivateHeader />
       <StPublicLayoutContainerWrapper>
         <StMainContainer>
+          {cartVisible && <CartModal />}
           <Outlet />
         </StMainContainer>
       </StPublicLayoutContainerWrapper>

@@ -25,6 +25,24 @@ export function Slider() {
             src="https://e0.pxfuel.com/wallpapers/775/107/desktop-wallpaper-the-online-influence-how-to-market-an-e-commerce-business.jpg"
           />
         </div>
+        <div>
+          <img
+            className="w-100% h-96"
+            src="https://texeducation.files.wordpress.com/2021/05/starting-an-ecommerce-business-.jpg"
+          />
+        </div>
+        <div>
+          <img
+            className="w-100% h-96"
+            src="https://eminence.ch/wp-content/uploads/2022/02/commerce-tips-2022.jpg"
+          />
+        </div>
+        <div>
+          <img
+            className="w-100% h-96"
+            src="https://au.buynship.com/contents/uploads/2020/02/BH.jpeg"
+          />
+        </div>
       </Carousel>
     </div>
   );

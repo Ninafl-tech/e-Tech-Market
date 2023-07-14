@@ -2,21 +2,15 @@ import React, { useEffect } from "react";
 import { TProduct } from "../../../types/Tproduct";
 import { Pagination } from "antd";
 import { PAGINATION_LIMIT } from "../../../config/pagination.config";
-import { useFetchData } from "../../../hooks/useFetchData";
+import { useGetProducts } from "../../../hooks/useGetProducts";
 
 export default function ProductTableView() {
-  const {
-    productsData,
-    isLoading,
-    getProducts,
-    currentPage,
-    totalItems,
-    onChange,
-  } = useFetchData();
+  const { productsData, isLoading, getProducts, totalItems, onChange } =
+    useGetProducts();
 
   useEffect(() => {
     getProducts();
-  }, [currentPage, getProducts]);
+  }, [getProducts]);
 
   console.log(productsData);
 
@@ -75,13 +69,13 @@ export default function ProductTableView() {
                 <td className="px-6 py-4">
                   {" "}
                   <div className="flex justify-center">
-                    <Pagination
+                    {/* <Pagination
                       current={currentPage}
                       onChange={onChange}
                       total={totalItems}
                       pageSize={PAGINATION_LIMIT}
                       simple={true}
-                    />
+                    /> */}
                   </div>
                 </td>
                 <td className="px-6 py-4"></td>

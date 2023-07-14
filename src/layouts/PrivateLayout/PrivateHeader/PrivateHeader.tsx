@@ -1,11 +1,10 @@
 import React from "react";
-import {
-  AuthContext,
-  TAuthorizationStatus,
-} from "../../../contexts/AuthContext";
+import { TUserTypes } from "../../../types/TUserTypes";
+import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 import { useContext } from "react";
 import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
 import { ShoppingCart } from "styled-icons/entypo";
+import { MenuOutline } from "@styled-icons/evaicons-outline/MenuOutline";
 import { StMainContainer } from "../../../components/StMainContainer/StMainContainer.styled";
 import { ProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/ProductSearchbar";
 import { StProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/StProductSearchbar.styled";
@@ -19,13 +18,16 @@ import {
   UserItem,
 } from "../../PublicLayout/Header/StHeader.styled";
 import { To, useNavigate } from "react-router";
+import { CartModalContext } from "../../../contexts/CartModalContext";
 
 export function PrivateHeader() {
-  const { status, setStatus } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
+  const { setCartVisible } = useContext(CartModalContext);
 
   const handleLogout = () => {
     localStorage.removeItem("AccessToken");
-    setStatus(TAuthorizationStatus.UNAUTHORIZED);
+    setCurrentUser(TUserTypes.GUEST);
+    navigate("/");
   };
 
   const navigate = useNavigate();
@@ -64,19 +66,34 @@ export function PrivateHeader() {
             </SearchBar>
 
             <UserCorner>
-              <UserItem onClick={() => buttonClick("/login")}>
+              <UserItem
+                className="text-solidGray px-2 py-1 cursor-pointer rounded  hover:bg-gray-100"
+                onClick={() => buttonClick("/login")}
+              >
                 <User size={24} />
                 <p>Profile</p>
               </UserItem>
-              <div className="text-solidGray" onClick={() => handleLogout()}>
+              <div
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                onClick={() => handleLogout()}
+              >
                 <UserMinus size={24} />
                 <p>Log Out</p>
               </div>
-              <div className="text-solidGray">
+              <div
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                onClick={() => {
+                  // navigate("/cart");
+                  setCartVisible(true);
+                }}
+              >
                 <ShoppingCart size={24} />
                 <p>My Card</p>
               </div>
-              <div className="text-solidGray" onClick={() => buttonClick("/")}>
+              <div
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                onClick={() => buttonClick("/")}
+              >
                 <Home size={24} />
                 <p>Home</p>
               </div>
@@ -85,8 +102,16 @@ export function PrivateHeader() {
         </HeaderWrapper>
       </StHeader>
       <StHeader>
-        <HeaderWrapper onClick={() => navigate("/products")}>
-          All products
+        <HeaderWrapper>
+          <div
+            className="cursor-pointer  text-solidGray flex items-center p-1.5"
+            onClick={() => navigate("/products")}
+          >
+            <div className="rounded p-1.5 hover:bg-gray-100  hover:text-black">
+              <MenuOutline size={24} />
+              <button>All Products</button>
+            </div>
+          </div>
         </HeaderWrapper>
       </StHeader>
     </>

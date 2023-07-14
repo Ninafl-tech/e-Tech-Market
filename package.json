@@ -11,7 +11,10 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "@styled-icons/boxicons-solid": "^10.47.0",
+    "@styled-icons/heroicons-outline": "^10.47.0",
     "@styled-icons/octicons": "^10.47.0",
     "@typescript-eslint/parser": "^5.60.0",
     "antd": "^5.6.1",

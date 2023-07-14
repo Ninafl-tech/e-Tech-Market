@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Visible, Hidden, Container, Text } from "./StProduct.styled";
 import { useNavigate } from "react-router";
 import { Button } from "antd";
-import { TProductsList } from "../../types/Tproduct";
+// import { TProductsList } from "../../types/Tproduct";
+import { GlobalContext } from "../../contexts/GlobalContext";
+import { TProduct } from "../../types/Tproduct";
 
-export function Product({ product }: TProductsList) {
+export function Product(product: TProduct) {
+  const { setCartItems } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const handleProductClick = () => {
@@ -25,14 +28,16 @@ export function Product({ product }: TProductsList) {
             alt={product.title}
           />
         </div>
-        <div className="px-3.5 font-bold">{`${Math.floor(
-          product.price
-        )}$`}</div>
+        <div className="px-3.5 font-bold">
+          {Math.floor(Number(product.price))}$
+        </div>
         <div className="px-3.5 py-3 flex justify-between items-center">
           <div className=" text-xs mb-2">{product.title}</div>
           <div className=" flex-col  justify-between">
             {" "}
-            <Button>
+            <Button
+              onClick={() => setCartItems((prev) => [product.id, ...prev])}
+            >
               <p>add to cart</p>
             </Button>
             <Button>

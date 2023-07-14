@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { baseURL } from "../../config/baseURL.config";
 import { TProduct } from "../../types/Tproduct";
+import { Carousel } from "antd";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 export default function ProductDetailView() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState<TProduct>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { setCartItems } = useContext(GlobalContext);
 
   async function getProduct(id: string) {
     try {
@@ -30,11 +33,11 @@ export default function ProductDetailView() {
   error && <div>... {error} </div>;
 
   return (
-    <section className="pt-12 pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
+    <section className=" pb-24 bg-blueGray-100 rounded-b-10xl overflow-hidden">
       <div className="container px-4 mx-auto">
         <div className="flex  -mx-4">
           <div className="w-full px-4">
-            <ul className="flex flex-wrap items-center mb-16">
+            <ul className="flex flex-wrap items-center ">
               <li className="mr-6">
                 <a
                   className="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
@@ -86,6 +89,7 @@ export default function ProductDetailView() {
                 </a>
               </li>
             </ul>
+            <img className="w-[30rem]" src={singleProduct?.images[0]} alt="" />
           </div>
           {/* {singleProduct?.images.map((image, index) => (
               <Carousel key={index} autoplay={true} afterChange={onChange}>
@@ -95,24 +99,18 @@ export default function ProductDetailView() {
               </Carousel>
             ))} */}
 
-          <div className="w-full lg:w-1/2 px-4">
+          <div className="flex flex-col justify-start w-full lg:w-1/2 px-4">
             <div className="max-w-md mb-6">
-              <span className="text-xs text-gray-400 tracking-wider">
-                {/* {singleProduct?.brand} */}
+              <span className="text-base text-gray-400 tracking-wider">
+                {singleProduct?.brand}
               </span>
-              <h2 className="mt-6 mb-4 text-xl md:text-2xl lg:text-3xl font-heading font-medium">
+              <h2 className="mt-2 mb-14 pb-14 text-base md:text-xl lg:text-2xl font-heading font-medium pt-8">
                 {singleProduct?.title}
               </h2>
               <p className="flex items-center mb-6">
-                <span className="mr-2 text-sm text-blue-500 font-medium">
-                  $
-                </span>
                 <span className="text-xl text-blue-500 font-medium">
-                  {singleProduct?.price}
+                  {Math.floor(Number(singleProduct?.price))}$
                 </span>
-              </p>
-              <p className="text-lg text-gray-400">
-                {singleProduct?.description}
               </p>
             </div>
             <div className="flex mb-6 items-center">
@@ -189,21 +187,29 @@ export default function ProductDetailView() {
                 </button>
               </div>
               <span className="text-md text-gray-400">
-                {/* {singleProduct?.rating} */}
+                <p>rating:</p>
+                {singleProduct?.rating}
               </span>
             </div>
 
-            <div className="flex flex-wrap -mx-2 mb-12">
+            <div className="flex flex-wrap -mx-2 mb-6">
               <div className="w-full md:w-2/3 px-2 mb-2 md:mb-0">
-                <a
-                  className="block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-white text-center bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hover:bg-blue-600 rounded-xl"
-                  href="#"
+                <button
+                  className="w-full block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-white text-center bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hover:bg-blue-600 rounded-xl"
+                  onClick={() =>
+                    setCartItems((prev) => [singleProduct?.id, ...prev])
+                  }
                 >
                   Add to bag
-                </a>
+                </button>
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          {" "}
+          <span className="text-gray-500">Description:</span>{" "}
+          <p className="text-sm text-gray-400"> {singleProduct?.description}</p>
         </div>
       </div>
     </section>
