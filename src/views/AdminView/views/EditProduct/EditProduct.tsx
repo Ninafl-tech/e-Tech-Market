@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { baseURL } from "../../../config/baseURL.config";
+import { Link, useParams } from "react-router-dom";
 import { New } from "styled-icons/entypo";
-import { InsertImage } from "../components/InsertImage";
-import { TImage } from "../types/TImage";
+import { InsertImage } from "../../components/InsertImage";
+import { TImage } from "../../types/TImage";
+import { baseURL } from "../../../../config/baseURL.config";
+import { TProduct } from "../../../../types/Tproduct";
+import { v4 as uuidv4 } from "uuid";
 
 type TaddProductForm = {
   title: string;
@@ -16,41 +18,75 @@ type TaddProductForm = {
   amount: string;
 };
 
-export function AddProduct() {
-  const [added, setAdded] = useState<boolean>(false);
+export const EditProduct = () => {
+  const [singleProduct, setSingleProduct] = useState<TProduct>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [producrErr, setProductErr] = useState<string | null>(null);
   const [fileList, setFileList] = useState<TImage[]>([]);
+
+  const [added, setAdded] = useState<boolean>(false);
+
+  const { id } = useParams();
+
+  async function getProduct(id: string) {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`${baseURL}/product/${id}`);
+      setSingleProduct(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setProductErr("Error occurred while fetching the product.");
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    id && getProduct(id);
+  }, [id]);
 
   const {
     register,
     handleSubmit,
     setError,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<TaddProductForm>();
+
+  useEffect(() => {
+    if (singleProduct) {
+      setValue("title", singleProduct.title);
+      setValue("brand", singleProduct.brand);
+      setValue("category", singleProduct.category);
+      setValue("price", singleProduct.price);
+      setValue("description", singleProduct.description);
+      setValue("amount", singleProduct.amount);
+      setFileList(
+        singleProduct?.images.map((url: string) => ({ id: uuidv4(), url }))
+      );
+    }
+  }, [singleProduct, setValue]);
 
   const storedAccessToken = localStorage.getItem("AccessToken");
 
   const onSubmit: SubmitHandler<TaddProductForm> = async (NewProductData) => {
     const values = {
       ...NewProductData,
-      images: fileList.map((item: TImage) => item.url),
+      images: fileList.map((item) => item.url),
+      id: id,
     };
 
     try {
-      const resp = await axios.post(`${baseURL}/product`, values, {
+      const resp = await axios.put(`${baseURL}/product/${id}`, values, {
         headers: {
           Authorization: `Bearer ${storedAccessToken}`,
-          "Content-Type": "application/json",
         },
       });
 
       setAdded(true);
     } catch (error: any) {
-      setError("title", { message: "Something went wrong" });
+      setProductErr("Something went wrong");
     }
-
-    reset();
-    setFileList([]);
   };
 
   return (
@@ -203,12 +239,12 @@ export function AddProduct() {
             type="submit"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
           >
-            ADD
+            SAVE
           </button>
 
           {added && (
             <p className="mt-2 text-sm text-green-600 ">
-              <span className="mr-10">Product added successfully</span>
+              <span className="mr-10">Product edited successfully</span>
               <span className="font-medium">
                 <Link to="/admin/products">Manage Products List</Link>
               </span>{" "}
@@ -218,4 +254,6 @@ export function AddProduct() {
       </div>
     </div>
   );
-}
+};
+
+export default EditProduct;

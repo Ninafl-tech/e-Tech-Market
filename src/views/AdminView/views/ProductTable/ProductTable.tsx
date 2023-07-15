@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { TProduct } from "../../../types/Tproduct";
+import { TProduct } from "../../../../types/Tproduct";
 import { Pagination } from "antd";
-import { PAGINATION_LIMIT } from "../../../config/pagination.config";
-import { useGetProducts } from "../../../hooks/useGetProducts";
+import { PAGINATION_LIMIT } from "../../../../config/pagination.config";
+import { useGetProducts } from "../../../../hooks/useGetProducts";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { baseURL } from "../../../config/baseURL.config";
+import { baseURL } from "../../../../config/baseURL.config";
 
-export default function ProductTableView() {
+export default function ProductTable() {
   const navigate = useNavigate();
   const storedAccessToken = localStorage.getItem("AccessToken");
 
@@ -44,7 +44,7 @@ export default function ProductTableView() {
       ) : (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Product title
@@ -62,7 +62,10 @@ export default function ProductTableView() {
             </thead>
             <tbody>
               {productsData.map((product: TProduct) => (
-                <tr className="bg-white border-b  hover:bg-gray-50 ">
+                <tr
+                  key={product.id}
+                  className="bg-white border-b  hover:bg-gray-50 "
+                >
                   <th
                     onClick={() => navigate(`/products/${product.id}`)}
                     scope="row"

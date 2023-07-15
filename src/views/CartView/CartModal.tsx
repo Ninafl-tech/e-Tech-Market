@@ -4,12 +4,17 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 import { CartModalContext } from "../../contexts/CartModalContext";
 import { GlobalContext } from "../../contexts/GlobalContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { CartItem } from "./CartItem/CartItem";
+import { TUserTypes } from "../../types/TUserTypes";
+import { useNavigate } from "react-router-dom";
 
 export function CartModal() {
   const { cartVisible, setCartVisible } = useContext(CartModalContext);
   const { cartItems, setCartItems } = useContext(GlobalContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const [bought, setBought] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const AfterPayment = useMemo(
     () => (
@@ -41,29 +46,45 @@ export function CartModal() {
           <p className="mt-0.5 text-sm text-gray-500">
             Shipping and taxes calculated at checkout.
           </p>
-          <div className="mt-6">
-            <button
-              onClick={() => {
-                if (cartItems.length !== 0) {
-                  setBought(true);
-                  setCartItems([]);
-                }
-              }}
-              type="button"
-              className=" w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-            >
-              Checkout
-            </button>
-          </div>
+          {currentUser === TUserTypes.USER ||
+            (currentUser === TUserTypes.ADMIN ? (
+              <div className="mt-6">
+                <button
+                  onClick={() => {
+                    if (cartItems.length !== 0) {
+                      setBought(true);
+                      setCartItems([]);
+                    }
+                  }}
+                  type="button"
+                  className="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                >
+                  Continue To Payment
+                </button>
+              </div>
+            ) : (
+              <div className="mt-6">
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                    setCartVisible(false);
+                  }}
+                  type="button"
+                  className="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                >
+                  Log in to proceed payment
+                </button>
+              </div>
+            ))}
+
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
-              or
               <button
                 type="button"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
                 onClick={() => setCartVisible(false)}
               >
-                Continue Shopping
+                or Continue Shopping
                 <span aria-hidden="true"> &rarr;</span>
               </button>
             </p>

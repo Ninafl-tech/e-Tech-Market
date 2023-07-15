@@ -20,6 +20,7 @@ export function ProductSearchbar() {
             }}
           >
             <Input
+              className="border border-blue-400 "
               placeholder="Search"
               required
               value={searchValue}
@@ -27,7 +28,7 @@ export function ProductSearchbar() {
             />
             <Button
               type="primary"
-              className="bg-primaryBlue"
+              className="bg-primaryBlue border border-blue-400 "
               htmlType="submit"
               onClick={handleclick}
             >

@@ -30,8 +30,8 @@ export function NavBrands() {
   return (
     <>
       <StNavBrands className="rounded-sm ">
-        <div className="w-full bg-white  p-4 rounded-sm">
-          <h2 className="text-gray-700">
+        <div className=" w-full bg-white  p-4 rounded-sm">
+          <h2 className="flex text-gray-700 bg-slate-200 p-2 rounded">
             <FormattedMessage id="all.brands" />
           </h2>
         </div>
