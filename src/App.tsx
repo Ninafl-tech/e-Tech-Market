@@ -6,8 +6,6 @@ import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { PublicLayout } from "./layouts/PublicLayout/PublicLayout";
 import { PrivateLayout } from "./layouts/PrivateLayout/PrivateLayout";
 import { TUserTypes } from "./types/TUserTypes";
-import { CartModalContext } from "./contexts/CartModalContext";
-import { CartModal } from "./views/CartView/CartModal";
 
 const HomeView = lazy(() => import("./views/HomeView/HomeView"));
 const ProductsView = lazy(() => import("./views/ProductsViews/ProductsView"));
@@ -32,7 +30,6 @@ const EditProduct = lazy(
 
 function App() {
   const { currentUser } = useContext(CurrentUserContext);
-  const { cartVisible } = useContext(CartModalContext);
 
   const handleRoots = useCallback((currentUser: TUserTypes) => {
     switch (currentUser) {
@@ -47,7 +44,6 @@ function App() {
                 path="/searchResults/:searchKeyword?"
                 element={<SearchResults />}
               />
-              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
             </Route>
@@ -64,7 +60,6 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/pay" element={<PaymentView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
@@ -82,7 +77,6 @@ function App() {
                 path="/searchResults/:searchKeyword"
                 element={<SearchResults />}
               />
-              {/* <Route path="/cart" element={<CartView />} /> */}
               <Route path="/pay" element={<PaymentView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />

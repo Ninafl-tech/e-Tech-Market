@@ -25,10 +25,10 @@ export const Container = styled.div`
     opacity: 0.7;
   }
 `;
-export const Text = styled.div`
+export const Text = styled.button`
   background-color: #1677ff;
   color: white;
   font-size: 16px;
-  padding: 16px 32px;
-  border-radius: 6px;
+  padding: 10px 30px;
+  border-radius: 8px;
 `;

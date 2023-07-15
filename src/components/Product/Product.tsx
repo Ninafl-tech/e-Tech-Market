@@ -33,19 +33,15 @@ export function Product(product: TProduct) {
           {Math.floor(Number(product.price))}$
         </div>
         <div className="px-3.5 py-3 flex justify-between items-center">
-          <div className=" text-xs mb-2">{product.title}</div>
+          <div className=" text-xs text-gray-600 mb-2">{product.title}</div>
           <div className=" flex-col  justify-between">
             {" "}
             <Button
+              className="bg-gray-300"
               onClick={() => setCartItems((prev) => [product.id, ...prev])}
             >
               <p>
                 <FormattedMessage id="Product.add.to.card" />
-              </p>
-            </Button>
-            <Button>
-              <p>
-                <FormattedMessage id="product.buy.now" />
               </p>
             </Button>
           </div>
