@@ -5,6 +5,7 @@ import { StPublicLayoutContainerWrapper } from "../PublicLayout/StPublicLayoutCo
 import { StMainContainer } from "../../components/StMainContainer/StMainContainer.styled";
 import { CartModalContext } from "../../contexts/CartModalContext";
 import { CartModal } from "../../views/CartView/CartModal";
+import { Footer } from "../PublicLayout/Footer/Footer";
 
 export function PrivateLayout() {
   const { cartVisible } = useContext(CartModalContext);
@@ -17,6 +18,7 @@ export function PrivateLayout() {
           <Outlet />
         </StMainContainer>
       </StPublicLayoutContainerWrapper>
+      <Footer />
     </div>
   );
 }

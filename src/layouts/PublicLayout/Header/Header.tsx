@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useContext } from "react";
-import { User, Home, UserMinus } from "@styled-icons/boxicons-solid";
+import { User, Home } from "@styled-icons/boxicons-solid";
 import { MenuOutline } from "@styled-icons/evaicons-outline/MenuOutline";
 import { ProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/ProductSearchbar";
 import { StProductSearchbar } from "../../PublicLayout/Header/ProductSearchbar/StProductSearchbar.styled";
