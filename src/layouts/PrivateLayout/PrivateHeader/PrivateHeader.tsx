@@ -22,6 +22,7 @@ import { To, useNavigate } from "react-router";
 import { CartModalContext } from "../../../contexts/CartModalContext";
 import { LocaleContext } from "../../../contexts/LocaleContext";
 import { FormattedMessage } from "react-intl";
+import { PersonSettings } from "@styled-icons/fluentui-system-filled/PersonSettings";
 
 export function PrivateHeader() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -135,6 +136,14 @@ export function PrivateHeader() {
                   <FormattedMessage id="all.products" />
                 </button>
               </div>
+              <div
+                className="flex text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                onClick={() => buttonClick("/user")}
+              >
+                <PersonSettings size={24} />
+                <p>User</p>
+              </div>
+
               {currentUser === TUserTypes.ADMIN && (
                 <div
                   className="flex text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"

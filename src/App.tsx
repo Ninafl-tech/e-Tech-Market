@@ -18,6 +18,7 @@ const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 // const CartView = lazy(() => import("./views/CartView/CartView"));
 const PaymentView = lazy(() => import("./views/PaymentView/PaymentView"));
 const AdminView = lazy(() => import("./views/AdminView/AdminView"));
+const UserView = lazy(() => import("./views/UserView/UserView"));
 const AddProduct = lazy(
   () => import("./views/AdminView/views/AddProduct/AddProduct")
 );
@@ -63,6 +64,7 @@ function App() {
               <Route path="/pay" element={<PaymentView />} />
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
+              <Route path="/user" element={<UserView />} />
             </Route>
           </Routes>
         );
