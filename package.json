@@ -16,6 +16,7 @@
     "@styled-icons/boxicons-solid": "^10.47.0",
     "@styled-icons/heroicons-outline": "^10.47.0",
     "@styled-icons/octicons": "^10.47.0",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/parser": "^5.60.0",
     "antd": "^5.6.1",
     "axios": "^1.4.0",
@@ -31,6 +32,7 @@
     "styled-components": "^6.0.0-rc.3",
     "styled-icons": "^10.47.0",
     "twin.macro": "^3.3.1",
+    "uuid": "^9.0.0",
     "vite-plugin-babel-macros": "^1.0.6"
   },
   "devDependencies": {

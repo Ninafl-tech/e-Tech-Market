@@ -12,6 +12,9 @@ export default function ProductDetailView() {
   const [singleProduct, setSingleProduct] = useState<TProduct>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [imageIndex, setImageIndex] = useState<number>(0);
+
   const { setCartItems } = useContext(GlobalContext);
 
   async function getProduct(id: string) {
@@ -92,16 +95,21 @@ export default function ProductDetailView() {
                 </a>
               </li>
             </ul>
-            <img className="w-[30rem]" src={singleProduct?.images[0]} alt="" />
+            <img
+              className="w-[30rem]"
+              src={singleProduct?.images[imageIndex]}
+            />
+            <div className=" max-w-[500px] overflow-auto flex gap-5 py-3">
+              {singleProduct?.images.map((image, index) => (
+                <img
+                  onClick={() => setImageIndex(index)}
+                  src={image}
+                  width="100px"
+                  className=" cursor-pointer"
+                />
+              ))}
+            </div>
           </div>
-          {/* {singleProduct?.images.map((image, index) => (
-              <Carousel key={index} autoplay={true} afterChange={onChange}>
-                <div>
-                  <h3 style={contentStyle}>{image}</h3>
-                </div>
-              </Carousel>
-            ))} */}
-
           <div className="flex flex-col justify-start w-full lg:w-1/2 px-4">
             <div className="max-w-md mb-6">
               <span className="text-base text-gray-400 tracking-wider">
