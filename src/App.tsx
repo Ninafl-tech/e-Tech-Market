@@ -8,7 +8,6 @@ import { PrivateLayout } from "./layouts/PrivateLayout/PrivateLayout";
 import { TUserTypes } from "./types/TUserTypes";
 import { CartModalContext } from "./contexts/CartModalContext";
 import { CartModal } from "./views/CartView/CartModal";
-import { EditProduct } from "./views/AdminView/EditProduct/EditProduct";
 
 const HomeView = lazy(() => import("./views/HomeView/HomeView"));
 const ProductsView = lazy(() => import("./views/ProductsViews/ProductsView"));
@@ -21,8 +20,14 @@ const SearchResults = lazy(() => import("./views/SearchResults/SearchResults"));
 // const CartView = lazy(() => import("./views/CartView/CartView"));
 const PaymentView = lazy(() => import("./views/PaymentView/PaymentView"));
 const AdminView = lazy(() => import("./views/AdminView/AdminView"));
-const ProductTableView = lazy(
-  () => import("./views/AdminView/ProductTableView/ProductTableView")
+const AddProduct = lazy(
+  () => import("./views/AdminView/views/AddProduct/AddProduct")
+);
+const ProductTable = lazy(
+  () => import("./views/AdminView/views/ProductTable/ProductTable")
+);
+const EditProduct = lazy(
+  () => import("./views/AdminView/views/EditProduct/EditProduct")
 );
 
 function App() {
@@ -82,7 +87,8 @@ function App() {
               <Route path="/login" element={<LoginView />} />
               <Route path="/register" element={<RegisterView />} />
               <Route path="/admin" element={<AdminView />} />
-              <Route path="/admin/products" element={<ProductTableView />} />
+              <Route path="/admin/add" element={<AddProduct />} />
+              <Route path="/admin/products" element={<ProductTable />} />
               <Route path="/admin/edit/:id" element={<EditProduct />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
