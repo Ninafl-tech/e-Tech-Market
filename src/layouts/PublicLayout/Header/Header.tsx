@@ -61,12 +61,15 @@ export function Header() {
             </SearchBar>
 
             <UserCorner>
-              <UserItem onClick={() => buttonClick("/login")}>
+              <UserItem
+                className="text-solidGray px-2 py-1 cursor-pointer rounded  hover:bg-gray-100"
+                onClick={() => buttonClick("/login")}
+              >
                 <User size={24} />
                 <p>Profile</p>
               </UserItem>
               <div
-                className="text-solidGray"
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
                 onClick={() => buttonClick("/register")}
               >
                 <UserPlus size={24} />
@@ -84,7 +87,10 @@ export function Header() {
                   <FormattedMessage id="my.card" />
                 </p>
               </div>
-              <div className="text-solidGray" onClick={() => buttonClick("/")}>
+              <div
+                className="text-solidGray px-2 py-1  cursor-pointer rounded hover:bg-gray-100"
+                onClick={() => buttonClick("/")}
+              >
                 <Home size={24} />
                 <p>Home</p>
               </div>
