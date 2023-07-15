@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 
 export function GlobalProvider({ children }: PropsWithChildren) {

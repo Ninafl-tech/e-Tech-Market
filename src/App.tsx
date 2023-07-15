@@ -8,6 +8,7 @@ import { PrivateLayout } from "./layouts/PrivateLayout/PrivateLayout";
 import { TUserTypes } from "./types/TUserTypes";
 import { CartModalContext } from "./contexts/CartModalContext";
 import { CartModal } from "./views/CartView/CartModal";
+import { EditProduct } from "./views/AdminView/EditProduct/EditProduct";
 
 const HomeView = lazy(() => import("./views/HomeView/HomeView"));
 const ProductsView = lazy(() => import("./views/ProductsViews/ProductsView"));
@@ -38,7 +39,7 @@ function App() {
               <Route path="/products" element={<ProductsView />} />
               <Route path="/products/:id" element={<ProductDetailView />} />
               <Route
-                path="/searchResults/:searchKeyword"
+                path="/searchResults/:searchKeyword?"
                 element={<SearchResults />}
               />
               {/* <Route path="/cart" element={<CartView />} /> */}
@@ -82,6 +83,7 @@ function App() {
               <Route path="/register" element={<RegisterView />} />
               <Route path="/admin" element={<AdminView />} />
               <Route path="/admin/products" element={<ProductTableView />} />
+              <Route path="/admin/edit/:id" element={<EditProduct />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>

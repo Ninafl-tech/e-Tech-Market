@@ -16,6 +16,7 @@
     "@styled-icons/boxicons-solid": "^10.47.0",
     "@styled-icons/heroicons-outline": "^10.47.0",
     "@styled-icons/octicons": "^10.47.0",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/parser": "^5.60.0",
     "antd": "^5.6.1",
     "axios": "^1.4.0",
@@ -24,12 +25,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
+    "react-intl": "^6.4.4",
     "react-query": "^3.39.3",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.14.1",
     "styled-components": "^6.0.0-rc.3",
     "styled-icons": "^10.47.0",
     "twin.macro": "^3.3.1",
+    "uuid": "^9.0.0",
     "vite-plugin-babel-macros": "^1.0.6"
   },
   "devDependencies": {
